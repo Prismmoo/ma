@@ -9,43 +9,43 @@
     paths such as /gallery would produce 404s in Search Console.
   -->
   <url>
-    <loc>https://prismmoo.github.io/</loc>
+    <loc>https://prismmoo.github.io/ma/</loc>
     <lastmod>2026-08-07</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
 
     <image:image>
-      <image:loc>https://prismmoo.github.io/rooms/mobile-room-01.webp</image:loc>
+      <image:loc>https://prismmoo.github.io/ma/rooms/mobile-room-01.webp</image:loc>
       <image:title>NN Cyberspace interior preview 01</image:title>
       <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
     </image:image>
 
     <image:image>
-      <image:loc>https://prismmoo.github.io/rooms/mobile-room-02.webp</image:loc>
+      <image:loc>https://prismmoo.github.io/ma/rooms/mobile-room-02.webp</image:loc>
       <image:title>NN Cyberspace interior preview 02</image:title>
       <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
     </image:image>
 
     <image:image>
-      <image:loc>https://prismmoo.github.io/rooms/mobile-room-03.webp</image:loc>
+      <image:loc>https://prismmoo.github.io/ma/rooms/mobile-room-03.webp</image:loc>
       <image:title>NN Cyberspace interior preview 03</image:title>
       <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
     </image:image>
 
     <image:image>
-      <image:loc>https://prismmoo.github.io/rooms/mobile-room-04.webp</image:loc>
+      <image:loc>https://prismmoo.github.io/ma/rooms/mobile-room-04.webp</image:loc>
       <image:title>NN Cyberspace interior preview 04</image:title>
       <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
     </image:image>
 
     <image:image>
-      <image:loc>https://prismmoo.github.io/rooms/mobile-room-05.webp</image:loc>
+      <image:loc>https://prismmoo.github.io/ma/rooms/mobile-room-05.webp</image:loc>
       <image:title>NN Cyberspace interior preview 05</image:title>
       <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
     </image:image>
 
     <image:image>
-      <image:loc>https://prismmoo.github.io/rooms/mobile-room-06.webp</image:loc>
+      <image:loc>https://prismmoo.github.io/ma/rooms/mobile-room-06.webp</image:loc>
       <image:title>NN Cyberspace interior preview 06</image:title>
       <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
     </image:image>

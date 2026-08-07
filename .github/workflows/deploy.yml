@@ -17,6 +17,7 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -24,12 +25,15 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
+          node-version: '22'
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --no-audit --no-fund
 
+      # continue-on-error مقصود هنا: tsconfig.json بلا include، فيمسح tsc ملفات
+      # الجذر المؤقتة (fix_*.mjs و patch_*.cjs و original.tsx). لا تحذف هذا السطر
+      # إلا بعد تنظيف تلك الملفات — وهذا خارج نطاق هذا البرومت.
       - name: Type check
         run: npm run lint
         continue-on-error: true
@@ -37,22 +41,32 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_BASE_PATH: /
+          VITE_BASE_PATH: /ma/
           VITE_ORDER_WEB_APP_URL: ${{ secrets.VITE_ORDER_WEB_APP_URL }}
 
+      # الحارس يقارن ناتج البناء الفعلي بالسلسلة الكاملة src="/ma/assets/".
+      # النسخة القديمة كانت 'src="/assets/' وهي تمرّ في الحالة المعطوبة
+      # وتفشل في السليمة — مقلوبة تماماً. لا تعد إليها.
       - name: Guard against wrong base path
         run: |
-          grep -q 'src="/assets/' dist/index.html \
-            || { echo "::error::dist/index.html does not reference / — wrong base"; exit 1; }
+          grep -q 'src="/ma/assets/' dist/index.html \
+            || { echo "::error::dist/index.html لا يشير إلى /ma/ — قيمة base خاطئة"; exit 1; }
 
       - name: Verify SEO files reached dist
         run: |
-          test -f dist/robots.txt  || { echo "robots.txt missing from dist"; exit 1; }
-          test -f dist/sitemap.xml || { echo "sitemap.xml missing from dist"; exit 1; }
-          test -f dist/index.html  || { echo "index.html missing from dist"; exit 1; }
+          test -f dist/robots.txt  || { echo "::error::robots.txt missing from dist"; exit 1; }
+          test -f dist/sitemap.xml || { echo "::error::sitemap.xml missing from dist"; exit 1; }
+          test -f dist/index.html  || { echo "::error::index.html missing from dist"; exit 1; }
 
+      - name: Add .nojekyll
+        run: touch dist/.nojekyll
+
+      # enablement: true يحاول تفعيل GitHub Pages تلقائياً إن لم يكن مفعّلاً.
+      # لا يُغني عن ضبط Settings ← Pages ← Source = GitHub Actions يدوياً.
       - name: Configure Pages
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -62,6 +76,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

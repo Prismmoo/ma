@@ -1,10 +1,12 @@
 # NN Cyberspace
 
-[![Deploy](https://github.com/Prismmoo/prismmoo.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/Prismmoo/prismmoo.github.io/actions/workflows/deploy.yml)
+[![Deploy](https://github.com/Prismmoo/ma/actions/workflows/deploy.yml/badge.svg)](https://github.com/Prismmoo/ma/actions/workflows/deploy.yml)
+[![CodeQL](https://github.com/Prismmoo/ma/actions/workflows/codeql.yml/badge.svg)](https://github.com/Prismmoo/ma/actions/workflows/codeql.yml)
 
 Futuristic digital art, physical canvases, and immersive spatial previews.
 
-**Live site:** https://prismmoo.github.io/
+- **Live site:** https://prismmoo.github.io/ma/
+- **Repository:** https://github.com/Prismmoo/ma
 
 ---
 
@@ -15,6 +17,7 @@ Futuristic digital art, physical canvases, and immersive spatial previews.
 - [Getting started](#getting-started)
 - [Scripts](#scripts)
 - [Project structure](#project-structure)
+- [Base path](#base-path)
 - [Deployment](#deployment)
 - [SEO](#seo)
 - [License](#license)
@@ -38,7 +41,7 @@ Every section is code-split and loaded on demand.
 
 - **Vite 6** — build tool and dev server
 - **React 19** — UI, with `React.lazy` for each section
-- **TypeScript 5.8** — strict type checking via `npm run lint`
+- **TypeScript 5.8** — type checking via `npm run lint`
 - **Tailwind CSS 4** — styling, through the official Vite plugin
 - **Motion** — animation
 - **lucide-react** — icons
@@ -87,15 +90,31 @@ scripts/          Maintenance scripts
 tests/            Unit tests
 ```
 
+## Base path
+
+This is a GitHub Pages **project site**, so it is served from a sub-path that
+matches the repository name:
+
+| Value | |
+| --- | --- |
+| Repository name | `ma` |
+| `base` | `/ma/` |
+| URL | `https://prismmoo.github.io/ma/` |
+
+`/ma/` appears in four files that must always agree: `vite.config.ts`,
+`.github/workflows/deploy.yml`, `.github/workflows/quality.yml`, and
+`playwright.config.ts`. See `DEPLOYMENT.md`.
+
 ## Deployment
 
 Pushing to the default branch triggers `.github/workflows/deploy.yml`, which
-installs dependencies, builds, verifies that the SEO files reached `dist/`,
-and publishes to GitHub Pages.
+installs dependencies, builds, verifies that the built HTML really references
+`/ma/assets/`, checks that the SEO files reached `dist/`, and publishes to
+GitHub Pages.
 
 One-time setup in the repository settings:
 
-1. **Settings → Pages → Source:** GitHub Actions
+1. **Settings → Pages → Build and deployment → Source:** GitHub Actions
 2. **Settings → Secrets and variables → Actions:** add `VITE_ORDER_WEB_APP_URL`
 
 No personal access token is required; the workflow uses the automatic
@@ -108,8 +127,13 @@ one URL is indexable. `public/sitemap.xml` lists that URL plus the six room
 photographs; `public/robots.txt` allows the JavaScript bundle, which Google
 must fetch in order to see any content at all.
 
+Because the site lives at `/ma/`, crawlers read `robots.txt` from
+`https://prismmoo.github.io/robots.txt` and not from this repository. Renaming
+the repository to `prismmoo.github.io` would move the site to the origin root
+and give this file real authority.
+
 Submit the sitemap in Google Search Console as the relative path
-`sitemap.xml`.
+`sitemap.xml` under the URL-prefix property `https://prismmoo.github.io/ma/`.
 
 ## License
 

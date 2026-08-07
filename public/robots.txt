@@ -1,6 +1,11 @@
 # ---------------------------------------------------------------------------
 #  NN Cyberspace
-#  https://prismmoo.github.io/
+#  https://prismmoo.github.io/ma/
+#
+#  ملاحظة مهمة: زواحف البحث تقرأ robots.txt من جذر النطاق فقط، أي من
+#  https://prismmoo.github.io/robots.txt — وليس من /ma/robots.txt.
+#  هذا الملف يبقى صحيحاً ومفيداً للتوثيق وللأدوات، لكن سلطته الحقيقية
+#  لا تتحقق إلا إذا أُعيدت تسمية المستودع إلى prismmoo.github.io.
 # ---------------------------------------------------------------------------
 
 User-agent: *
@@ -9,8 +14,8 @@ Allow: /
 # Client-rendered single page application: the HTML body is empty until the
 # JavaScript bundle runs. Blocking the bundle makes Google index a blank
 # page. Never disallow these paths.
-Allow: /assets/
-Allow: /rooms/
+Allow: /ma/assets/
+Allow: /ma/rooms/
 
 # Build by-products, never content.
 Disallow: /*.map$
@@ -29,4 +34,4 @@ Crawl-delay: 10
 User-agent: MJ12bot
 Crawl-delay: 20
 
-Sitemap: https://prismmoo.github.io/sitemap.xml
+Sitemap: https://prismmoo.github.io/ma/sitemap.xml
