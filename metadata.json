@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix PRISM",
+  "description": "A high-end, modern digital art gallery and e-commerce platform for premium physical paintings, featuring an interactive wall visualizer and design blueprint.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

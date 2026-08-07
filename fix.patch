@@ -1,0 +1,38 @@
+--- src/hooks/useGalleryFilters.ts
++++ src/hooks/useGalleryFilters.ts
+@@ -27,10 +27,15 @@
+   const [selectedCategory, setSelectedCategory] = useRemembered<StyleType | null>(key('category'), null);
+   const [selectedSubCategory, setSelectedSubCategory] = useRemembered<string | null>(key('sub'), null);
+   const [isSubCategoryConfirmed, setIsSubCategoryConfirmed] = useRemembered<boolean>(key('confirmed'), false);
+-  const [selectedSizes,
+-    selectedAspectRatio,
+-    setSelectedAspectRatio,
+-    selectedResolution,
+-    setSelectedResolution,
+-    mobileColumns,
+-    setMobileColumns,                         setSelectedSizes] = useState<SizeCategory[]>([]);          const [selectedPalette, setSelectedPalette] = useState<string | null>(null);
++
++  const [selectedSizes, setSelectedSizes] = useState<SizeCategory[]>([]);
++  const [selectedAspectRatio, setSelectedAspectRatio] = useRemembered<string | null>(key('aspect'), null);
++  const [selectedResolution, setSelectedResolution] = useRemembered<string | null>(key('res'), 'HD');
++  const [mobileColumns, setMobileColumns] = useState<number>(() => {
++    const saved = typeof window !== 'undefined' ? localStorage.getItem('gallery.mobileColumns') : null;
++    return saved ? parseInt(saved, 10) : 2;
++  });
++  useEffect(() => {
++    if (typeof window !== 'undefined') localStorage.setItem('gallery.mobileColumns', mobileColumns.toString());
++  }, [mobileColumns]);
++
++  const [selectedPalette, setSelectedPalette] = useState<string | null>(null);
+   const [maxPrice, setMaxPrice] = useState<number>(6500);
+@@ -198,7 +203,13 @@
+     setIsSubCategoryConfirmed,
+     selectedSizes,
++    selectedAspectRatio,
++    setSelectedAspectRatio,
++    selectedResolution,
++    setSelectedResolution,
++    mobileColumns,
++    setMobileColumns,
+     toggleSize,
+     selectedPalette,

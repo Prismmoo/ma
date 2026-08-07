@@ -1,0 +1,3009 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Inter:wght@200;300;400;500;600;700;800&family=Orbitron:wght@400;700;900&family=Audiowide&family=Bruno+Ace+SC&family=Michroma&family=Share+Tech+Mono&family=Wallpoet&family=Syncopate:wght@400;700&family=Major+Mono+Display&family=Silkscreen:wght@400;700&family=Righteous&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Plus Jakarta Sans", "Inter", sans-serif;
+  --font-sans: "Inter", "Helvetica Neue", "Arial", sans-serif;
+  
+  --color-forest-black: #EAE9F6; /* Clean light-purple/lavender background */
+
+  /* ─── V33: سلّم درجات الخلفية. عائلة لون واحدة، خمس درجات. ─── */
+  /*    كلها على محور البنفسجي ~256° — لا يُضاف أي لون جديد إطلاقًا.  */
+  --pz-bg-base: #E4E0F7;   /* rgb(228, 224, 247)  الطلاء الأساس — لا وميض أبيض أبدًا */
+  --pz-bg-t1:   #EFECFB;   /* rgb(239, 236, 251)  أفتح درجة */
+  --pz-bg-t2:   #DED7F5;   /* rgb(222, 215, 245) */
+  --pz-bg-t3:   #CDC2F0;   /* rgb(205, 194, 240) */
+  --pz-bg-t4:   #BCACEA;   /* rgb(188, 172, 234)  أعمق درجة */
+  --color-forest-deep: rgba(255, 255, 255, 0.4);  /* Translucent glassmorphism base */
+  --color-forest-dark: #D0CDE6;  /* Soft slate lavender border */
+  --color-forest-medium: #7952F3; /* Bright neon purple accent */
+  --color-forest-sage: #5A5D7A;  /* Slate gray secondary text */
+  --color-forest-cream: #12131A; /* Sharp black contrasting typography */
+  --color-forest-gold: #7952F3;  /* Neon purple accent */
+
+  /* ─── V4: طبقة دلالية للواجهة. الأسماء تصف الوظيفة لا اللون ─── */
+  --color-ui-canvas:       #F7F6FB;  /* خلفية الصفحة */
+  --color-ui-surface:      #FFFFFF;  /* بطاقة / لوحة */
+  --color-ui-surface-alt:  #F1F0F8;  /* صف مطويّ، تمرير الفأرة */
+  --color-ui-line:         #DCDAE8;  /* حدّ عادي */
+  --color-ui-line-strong:  #B9B5CE;  /* حدّ عند التمرير */
+  --color-ui-text:         #14141C;  /* نص أساسي */
+  --color-ui-muted:        #62617A;  /* نص ثانوي — تباين 5.9:1 على canvas */
+  --color-ui-accent:       #4A32B8;  /* لون العلامة، نسخة معتمة تكفي للنص */
+  --color-ui-accent-soft:  #EDE8FF;  /* خلفية الحالة المختارة */
+  --color-ui-on-accent:    #FFFFFF;  /* نص فوق accent */
+
+  /* ── Personalization Studio (V6) ──────────────────────────────
+     طبقة خاصة بالاستوديو وحده. مفصولة عن ui-* عمدًا:
+     الاستوديو أداة تحرير داخل مودال داكن، فيحتاج تباينًا أعلى وحدودًا أوضح
+     من صفحة تصفّح عادية. الأرقام مختارة لتحقّق WCAG AA على --pz-surface. */
+  --pz-canvas:       #F4F3F9;  /* خلفية منطقة المعاينة */
+  --pz-surface:      #FFFFFF;  /* جسم النافذة */
+  --pz-surface-alt:  #EFEDF7;  /* الرأس والتذييل والحقول */
+  --pz-line:         #D8D5E6;  /* حدّ عادي */
+  --pz-line-strong:  #ADA7C6;  /* حدّ نشط / منقّط */
+  --pz-text:         #100F18;  /* نص أساسي — تباين 18.1:1 */
+  --pz-muted:        #5B5975;  /* نص ثانوي — تباين 6.9:1 */
+  --pz-accent:       #4327A8;  /* بنفسجي العلامة — تباين 9.4:1 مع الأبيض */
+  --pz-accent-hover: #351E86;
+  --pz-accent-soft:  #EBE5FF;  /* خلفية الحالة المختارة */
+  --pz-gold:         #B08842;  /* ربط مع forest-gold دون استعمال #7952F3 */
+  --pz-danger:       #A32530;  /* تأكيد المسح فقط */
+  --pz-shadow:       0 24px 60px -18px rgba(16, 15, 24, 0.42);
+}
+
+/* Custom global styles for Futuristic Neo-Brutalist Theme & Native Mobile App Feel */
+* {
+  -webkit-tap-highlight-color: transparent;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+*::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  height: 0px;
+  background: transparent;
+}
+
+html, body {
+  touch-action: manipulation;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: none;
+  font-family: var(--font-sans);
+  background-color: var(--pz-bg-base);
+  color: var(--color-forest-cream);
+  overflow-x: hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+button, a, [role="button"] {
+  touch-action: manipulation;
+  user-select: none;
+}
+
+/* Hide scrollbar utility for Webkit & standard */
+::-webkit-scrollbar {
+  display: none;
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* Luxury transitions */
+.transition-luxury {
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Vignette effect for deep gallery room atmosphere */
+.vignette-overlay {
+  background: radial-gradient(circle, rgba(245,242,235,0) 30%, rgba(245,242,235,0.7) 100%);
+}
+
+/* Custom shining button styles from Uiverse.io */
+.btn-shine {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 12px 48px;
+  color: #fff;
+  background: linear-gradient(to right, #12131A 0, #fff 50%, #12131A 100%);
+  background-size: 200% auto;
+  background-position: 0;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 3s infinite linear;
+  animation-fill-mode: forwards;
+  -webkit-text-size-adjust: none;
+  font-weight: 700;
+  font-size: 18px;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  text-decoration: none;
+  white-space: nowrap;
+  font-family: var(--font-sans);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-shine:hover {
+  text-shadow: 0 0 10px rgba(121, 82, 243, 0.3);
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+/* Fullscreen hero: stable on mobile browser chrome and desktop. */
+.nn-hero-viewport {
+  height: 100dvh;
+  min-height: 100dvh;
+}
+
+@supports (height: 100svh) {
+  .nn-hero-viewport {
+    height: 100svh;
+    min-height: 100svh;
+  }
+}
+
+@supports (height: 100dvh) {
+  .nn-hero-viewport {
+    height: 100dvh;
+    min-height: 100dvh;
+  }
+}
+
+.nn-hero-background-video {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center center;
+  pointer-events: none;
+  user-select: none;
+  background-color: #0b0a10;
+}
+
+/* Transparent neon explore action — no black or opaque fill. */
+.btn-neon-futuristic {
+  --glow-color: #a64fcc;
+  --glow-spread-color: rgba(88, 24, 128, 0.68);
+  --enhanced-glow-color: #d5a1ea;
+
+  position: relative;
+  z-index: 1;
+  min-height: 48px;
+  padding: 1em 3em;
+  border: 0.16em solid var(--glow-color);
+  border-radius: 1em;
+  outline: none;
+  background: transparent;
+  color: var(--enhanced-glow-color);
+  box-shadow:
+    0 0 0.75em 0.12em var(--glow-color),
+    0 0 2.4em 0.45em var(--glow-spread-color),
+    inset 0 0 0.7em 0.12em rgba(112, 32, 160, 0.68);
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.2;
+  text-align: center;
+  text-shadow:
+    0 0 0.45em var(--glow-color),
+    0 0 1em rgba(166, 79, 204, 0.78);
+  cursor: pointer;
+  transition:
+    color 0.25s ease,
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.15s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.btn-neon-futuristic::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: calc(1em - 4px);
+  background: linear-gradient(
+    120deg,
+    rgba(166, 79, 204, 0.1),
+    transparent 38%,
+    rgba(88, 24, 128, 0.09)
+  );
+  pointer-events: none;
+}
+
+.btn-neon-futuristic::after {
+  content: "";
+  position: absolute;
+  top: 120%;
+  left: 8%;
+  width: 84%;
+  height: 75%;
+  background-color: var(--glow-spread-color);
+  filter: blur(1.8em);
+  opacity: 0.48;
+  transform: perspective(1.5em) rotateX(35deg) scale(1, 0.55);
+  pointer-events: none;
+}
+
+.btn-neon-futuristic:hover {
+  border-color: var(--enhanced-glow-color);
+  background-color: rgba(88, 24, 128, 0.2);
+  color: #ffffff;
+  box-shadow:
+    0 0 0.9em 0.18em var(--enhanced-glow-color),
+    0 0 3.2em 0.75em var(--glow-spread-color),
+    inset 0 0 0.85em 0.18em rgba(166, 79, 204, 0.7);
+  transform: translateY(-2px);
+}
+
+.btn-neon-futuristic:active {
+  background-color: rgba(72, 16, 112, 0.28);
+  box-shadow:
+    0 0 0.55em 0.12em var(--glow-color),
+    0 0 1.8em 0.5em var(--glow-spread-color),
+    inset 0 0 0.55em 0.18em var(--glow-color);
+  transform: translateY(1px) scale(0.985);
+}
+
+.btn-neon-futuristic:focus-visible {
+  outline: 3px solid var(--enhanced-glow-color);
+  outline-offset: 6px;
+}
+
+@media (max-width: 480px) {
+  .btn-neon-futuristic {
+    max-width: calc(100vw - 40px);
+    padding: 0.9em 2em;
+    font-size: 14px;
+  }
+}
+
+/* =========================================================
+   NN NEUMORPHIC SOFT-UI CAPSULE HEADER (Matching Reference Image)
+   ========================================================= */
+
+/* Main desktop & tablet capsule bar */
+.nn-neumorphic-bar {
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDEDF6 100%);
+  border-radius: 9999px;
+  padding: 6px 10px 6px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 12px 32px rgba(180, 185, 210, 0.42),
+    0 2px 6px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px #FFFFFF,
+    inset 0 -1px 2px rgba(180, 185, 210, 0.25);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+  transition: all 300ms ease;
+}
+
+/* Mobile capsule bar */
+.nn-neumorphic-bar-mobile {
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDEDF6 100%);
+  border-radius: 9999px;
+  padding: 6px 12px 6px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.95);
+  box-shadow:
+    0 10px 28px rgba(180, 185, 210, 0.38),
+    0 2px 5px rgba(0, 0, 0, 0.04),
+    inset 0 1px 1px #FFFFFF;
+}
+
+/* Brand Button with 3D Glossy Sphere Orb */
+.nn-soft-brand-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  transition: transform 180ms ease;
+}
+
+.nn-soft-brand-button:hover {
+  transform: scale(1.03);
+}
+
+/* 3D Glossy Ice/Blue Orb */
+.nn-glossy-orb {
+  position: relative;
+  width: 28px;
+  height: 28px;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle at 35% 25%,
+    #E8F2FF 0%,
+    #A3CDFF 22%,
+    #4285F4 55%,
+    #1A56DB 82%,
+    #0F3896 100%
+  );
+  box-shadow:
+    0 4px 10px rgba(37, 99, 235, 0.38),
+    inset 0 2px 3px rgba(255, 255, 255, 0.9),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.35);
+  flex-shrink: 0;
+}
+
+.nn-glossy-orb::after {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  width: 9px;
+  height: 5px;
+  border-radius: 9999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.2) 100%);
+  transform: rotate(-20deg);
+}
+
+.nn-brand-title {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 750;
+  color: #373D4D;
+  letter-spacing: -0.01em;
+}
+
+/* Navigation Link (Inactive state in image) */
+.nn-soft-nav-link {
+  padding: 8px 18px;
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  color: #70778A;
+  font-family: var(--font-sans);
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  background: transparent;
+  transition: all 180ms ease;
+}
+
+.nn-soft-nav-link:hover {
+  color: #2D3345;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+/* Active Nav Link (Raised Soft White Pill in image) */
+.nn-soft-nav-link--active {
+  color: #222634;
+  font-weight: 750;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F3F3FA 100%);
+  border: 1px solid rgba(255, 255, 255, 1);
+  box-shadow:
+    0 4px 14px rgba(150, 155, 185, 0.32),
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    inset 0 1.5px 0 #FFFFFF;
+}
+
+/* Soft Icon Buttons (Map & Cart) */
+.nn-soft-pill-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDEDF6 100%);
+  color: #4A5163;
+  box-shadow:
+    0 3px 8px rgba(160, 165, 190, 0.25),
+    inset 0 1px 0 #FFFFFF;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.nn-soft-pill-icon-btn:hover {
+  color: #111827;
+  transform: translateY(-1px);
+  box-shadow:
+    0 5px 12px rgba(150, 155, 180, 0.35),
+    inset 0 1px 0 #FFFFFF;
+}
+
+/* Action button "Join Us" */
+.nn-soft-action-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 8px 16px;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDEDF6 100%);
+  color: #373D4D;
+  font-family: var(--font-sans);
+  font-size: 12.5px;
+  font-weight: 700;
+  box-shadow:
+    0 3px 8px rgba(160, 165, 190, 0.25),
+    inset 0 1px 0 #FFFFFF;
+  cursor: pointer;
+  transition: all 180ms ease;
+}
+
+.nn-soft-action-btn:hover {
+  color: #111827;
+  transform: translateY(-1px);
+  box-shadow:
+    0 5px 12px rgba(150, 155, 180, 0.35),
+    inset 0 1px 0 #FFFFFF;
+}
+
+/* Cart badge */
+.nn-soft-cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  display: flex;
+  height: 17px;
+  min-width: 17px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  background: #3B82F6;
+  color: #FFFFFF;
+  font-size: 10px;
+  font-weight: 800;
+  padding: 0 4px;
+  box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4);
+}
+
+/* Mobile overlay & panel */
+.nn-soft-mobile-overlay {
+  background: rgba(244, 244, 250, 0.95);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.nn-soft-mobile-panel {
+  padding: 16px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #FFFFFF 0%, #EDEDF6 100%);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 16px 36px rgba(160, 165, 190, 0.35);
+}
+
+.nn-soft-mobile-link {
+  width: 100%;
+  padding: 12px 18px;
+  border-radius: 9999px;
+  text-align: left;
+  font-size: 14px;
+  font-weight: 600;
+  color: #555C6E;
+  background: transparent;
+  border: 1px solid transparent;
+  transition: all 180ms ease;
+}
+
+.nn-soft-mobile-link--active {
+  color: #222634;
+  font-weight: 750;
+  background: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 4px 12px rgba(160, 165, 190, 0.25);
+}
+
+/* Compact padding for medium displays */
+@media (max-width: 1180px) and (min-width: 768px) {
+  .nn-soft-nav-item {
+    padding-inline: 0.85rem;
+    font-size: 10.5px;
+  }
+
+  .nn-soft-account-button {
+    padding-inline: 0.8rem;
+  }
+}
+
+@media (max-width: 420px) {
+  .nn-soft-icon-button {
+    width: 38px;
+    height: 38px;
+    flex-basis: 38px;
+  }
+
+  .nn-soft-account-button {
+    min-height: 38px;
+    padding-inline: 0.72rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nn-soft-nav-item,
+  .nn-soft-icon-button,
+  .nn-soft-account-button,
+  .nn-soft-mobile-item {
+    transition: none;
+  }
+}
+
+/* Futuristic Wave Transition & Holographic HUD Animations */
+@keyframes cyberOverlayFade {
+  0% {
+    opacity: 0;
+  }
+  15% {
+    opacity: 1;
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes waveRise1 {
+  0% {
+    transform: translateY(100%) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-20%) rotate(1deg);
+  }
+  100% {
+    transform: translateY(-140%) rotate(0deg);
+  }
+}
+
+@keyframes waveRise2 {
+  0% {
+    transform: translateY(100%) rotate(2deg);
+  }
+  55% {
+    transform: translateY(-15%) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(-140%) rotate(0deg);
+  }
+}
+
+@keyframes waveRise3 {
+  0% {
+    transform: translateY(100%) rotate(-1deg);
+  }
+  60% {
+    transform: translateY(-10%) rotate(2deg);
+  }
+  100% {
+    transform: translateY(-140%) rotate(0deg);
+  }
+}
+
+@keyframes wavePulseCircle {
+  0% {
+    transform: translate(-50%, -50%) scale(0.1);
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(2.5);
+    opacity: 0;
+  }
+}
+
+@keyframes waveHudPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(16px);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  80% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.08) translateY(-12px);
+  }
+}
+
+@keyframes waveBarPulse {
+  0%, 100% {
+    transform: scaleY(0.25);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+
+.animate-cyber-overlay {
+  animation: cyberOverlayFade 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-wave-1 {
+  animation: waveRise1 0.95s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+}
+
+.animate-wave-2 {
+  animation: waveRise2 0.95s cubic-bezier(0.25, 1, 0.5, 1) 0.08s forwards;
+}
+
+.animate-wave-3 {
+  animation: waveRise3 0.95s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards;
+}
+
+.animate-wave-pulse {
+  animation: wavePulseCircle 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-wave-hud {
+  animation: waveHudPop 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-wave-bar-1 {
+  animation: waveBarPulse 0.4s ease-in-out infinite alternate;
+}
+
+/* ═══ Personalization Studio helpers (V6) ═══ */
+
+/* ورق رسم: شبكة خفيفة توحي بأن المساحة قابلة للرسم، بدل مربّع أبيض صامت. */
+.pz-paper {
+  background-color: var(--pz-surface);
+  background-image:
+    linear-gradient(var(--pz-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--pz-line) 1px, transparent 1px);
+  background-size: 22px 22px;
+  background-position: -1px -1px;
+  opacity: 1;
+}
+
+/* خط التوقيع — إشارة متعارف عليها في كل واجهات التوقيع المهنية. */
+.pz-baseline::after {
+  content: '';
+  position: absolute;
+  left: 8%;
+  right: 8%;
+  bottom: 22%;
+  height: 1px;
+  background: var(--pz-line-strong);
+  opacity: 0.55;
+  pointer-events: none;
+}
+
+/* مفتاح اختصار لوحة المفاتيح. */
+.pz-kbd {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.35rem;
+  height: 1.15rem;
+  padding: 0 0.3rem;
+  border: 1px solid var(--pz-line-strong);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--pz-surface);
+  color: var(--pz-muted);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 9px;
+  line-height: 1;
+  letter-spacing: 0.02em;
+}
+
+/* احترام تفضيل تقليل الحركة — مطلوب للوصولية، وغائب اليوم. */
+@media (prefers-reduced-motion: reduce) {
+  .pz-animated { transition: none !important; animation: none !important; }
+}
+.animate-wave-bar-2 {
+  animation: waveBarPulse 0.5s ease-in-out infinite alternate 0.1s;
+}
+.animate-wave-bar-3 {
+  animation: waveBarPulse 0.35s ease-in-out infinite alternate 0.2s;
+}
+.animate-wave-bar-4 {
+  animation: waveBarPulse 0.45s ease-in-out infinite alternate 0.15s;
+}
+.animate-wave-bar-5 {
+  animation: waveBarPulse 0.55s ease-in-out infinite alternate 0.05s;
+}
+
+/* =========================================================================
+   Entry cue for THE SHOW ("Tap to open").
+   Replaces the previous floating word at the same anchor point.
+   Transform/opacity only => no layout shift, no reflow.
+   ========================================================================= */
+@keyframes nnTapCueBreath {
+  0%   { opacity: 0;    transform: translateY(8px) scale(0.97); filter: blur(3px); }
+  14%  { opacity: 0.92; transform: translateY(0)   scale(1);    filter: blur(0); }
+  52%  { opacity: 0.92; transform: translateY(0)   scale(1);    filter: blur(0); }
+  68%  { opacity: 0.34; transform: translateY(-2px) scale(0.995); filter: blur(0.4px); }
+  100% { opacity: 0;    transform: translateY(8px) scale(0.97); filter: blur(3px); }
+}
+
+/* Light travelling across the glass, only while the cue is visible. */
+@keyframes nnTapCueSheen {
+  0%, 30%  { transform: translateX(-140%); opacity: 0; }
+  45%      { opacity: 0.55; }
+  70%,100% { transform: translateX(240%);  opacity: 0; }
+}
+
+.nn-tap-cue {
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
+  animation: nnTapCueBreath 5.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+  will-change: transform, opacity, filter;
+  transition: opacity 300ms ease, transform 300ms ease, background-color 300ms ease;
+}
+
+.nn-tap-cue::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 45%;
+  pointer-events: none;
+  background: linear-gradient(
+    100deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.22) 50%,
+    transparent 100%
+  );
+  transform: translateX(-140%);
+  animation: nnTapCueSheen 5.6s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+/* Intent to interact stops the breathing and holds the cue fully visible. */
+.nn-tap-cue:hover,
+.nn-tap-cue:focus-visible,
+.nn-tap-cue:active {
+  animation-play-state: paused;
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: none;
+}
+
+.nn-tap-cue:hover::after,
+.nn-tap-cue:focus-visible::after {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nn-tap-cue,
+  .nn-tap-cue::after {
+    animation: none;
+    transform: none;
+    filter: none;
+  }
+  .nn-tap-cue {
+    opacity: 0.9;
+  }
+  .nn-tap-cue::after {
+    display: none;
+  }
+}
+
+/* ==== STICKER VISUAL LANGUAGE =============================================
+   The sticker section must never read as "the paintings page again".
+   A painting is framed art on a wall: rectangular, matted, hung.
+   A sticker is a die-cut object: square tile, white cut line, contact shadow,
+   glossy laminate, and a corner that wants to be peeled.
+
+   Technique notes (why it is built this way):
+   - `filter: drop-shadow()` follows the alpha channel of the artwork, unlike
+     `box-shadow` which always draws the rectangular box. Four tight white
+     drop-shadows stacked in the four directions synthesise the classic 1-2 mm
+     die-cut white border around ANY transparent PNG, with no per-image asset.
+   - A fifth, soft, dark drop-shadow gives the contact shadow that makes the
+     sticker look like it is lying ON the surface.
+   - Transform and filter only: no layout property is animated, so the grid
+     never reflows on hover.
+   ========================================================================= */
+
+/* Square tile the sticker lives on. Act as a dark cutting mat background under the peeled corner. */
+.pz-sticker-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  border-radius: 18px;
+  background-color: #0b0a0e;
+  background-image: 
+    linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 8px 8px;
+  background-position: center;
+}
+
+/* Inner content wrapper that holds the artwork/covers and clips on hover */
+.pz-sticker-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background:
+    radial-gradient(120% 120% at 50% 0%, rgba(255, 255, 255, 0.08) 0%, transparent 60%),
+    linear-gradient(180deg, #17161f 0%, #101018 100%);
+  transition: clip-path 400ms cubic-bezier(0.25, 1, 0.5, 1);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+}
+
+.group:hover .pz-sticker-content,
+.pz-sticker-tile:hover .pz-sticker-content {
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 44px), calc(100% - 44px) 100%, 0 100%);
+}
+
+/* Transparency checkerboard, used inside the editor stage. */
+.pz-checkerboard {
+  background-color: #15151d;
+  background-image:
+    linear-gradient(45deg, rgba(255, 255, 255, 0.045) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(255, 255, 255, 0.045) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.045) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.045) 75%);
+  background-size: 18px 18px;
+  background-position: 0 0, 0 9px, 9px -9px, -9px 0;
+}
+
+/* The artwork itself, cut like vinyl. */
+.pz-sticker-art {
+  filter:
+    drop-shadow(1.5px 0 0 #ffffff)
+    drop-shadow(-1.5px 0 0 #ffffff)
+    drop-shadow(0 1.5px 0 #ffffff)
+    drop-shadow(0 -1.5px 0 #ffffff)
+    drop-shadow(0 10px 14px rgba(0, 0, 0, 0.45))
+    drop-shadow(0 2px 3px rgba(0, 0, 0, 0.35));
+  transform: rotate(-1.5deg);
+  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1), filter 500ms ease;
+  will-change: transform, filter;
+}
+
+.group:hover .pz-sticker-art,
+.pz-sticker-tile:hover .pz-sticker-art {
+  transform: rotate(1.5deg) scale(1.06);
+  filter:
+    drop-shadow(1.5px 0 0 #ffffff)
+    drop-shadow(-1.5px 0 0 #ffffff)
+    drop-shadow(0 1.5px 0 #ffffff)
+    drop-shadow(0 -1.5px 0 #ffffff)
+    drop-shadow(0 18px 22px rgba(0, 0, 0, 0.5))
+    drop-shadow(0 3px 4px rgba(0, 0, 0, 0.4));
+}
+
+/* Thicker cut line for the big preview in the editor. */
+.pz-sticker-art-lg {
+  filter:
+    drop-shadow(3px 0 0 #ffffff)
+    drop-shadow(-3px 0 0 #ffffff)
+    drop-shadow(0 3px 0 #ffffff)
+    drop-shadow(0 -3px 0 #ffffff)
+    drop-shadow(0 16px 24px rgba(0, 0, 0, 0.55));
+}
+
+/* Laminate gloss sweeping across the tile on hover. Completely disabled to remove glass reflection. */
+.pz-sticker-gloss {
+  display: none !important;
+}
+
+/* Holographic finish hint for the holo/chrome options. */
+.pz-sticker-holo::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  mix-blend-mode: screen;
+  background: conic-gradient(
+    from 210deg,
+    rgba(192, 132, 252, 0.35),
+    rgba(125, 211, 252, 0.3),
+    rgba(253, 224, 71, 0.28),
+    rgba(244, 114, 182, 0.32),
+    rgba(192, 132, 252, 0.35)
+  );
+}
+
+/* Peeling corner: a highly realistic curled paper/metallic foil underside that matches user reference. */
+.pz-sticker-peel {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  width: 46px;
+  height: 46px;
+  pointer-events: none;
+  /* Underside curl look: gorgeous silver metallic cylinder gradient with high-end specular highlight */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(220, 220, 225, 0.9) 30%,
+    rgba(130, 130, 140, 1) 48%,
+    rgba(255, 255, 255, 1) 52%,
+    rgba(170, 170, 180, 1) 68%,
+    rgba(80, 80, 90, 0.4) 100%
+  );
+  border-top-left-radius: 30px;
+  border-bottom-right-radius: 18px; /* matches .pz-sticker-tile rounded corner */
+  box-shadow: -6px -6px 12px rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  transform: translate(12px, 12px) scale(0.8) rotate(5deg);
+  transition: opacity 350ms cubic-bezier(0.25, 1, 0.5, 1), transform 450ms cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
+  z-index: 10;
+}
+
+.group:hover .pz-sticker-peel,
+.pz-sticker-tile:hover .pz-sticker-peel {
+  opacity: 1;
+  transform: translate(0, 0) scale(1) rotate(0deg);
+}
+
+/* Dashed cut outline drawn around the square tile. */
+.pz-sticker-cutline {
+  position: absolute;
+  inset: 10px;
+  pointer-events: none;
+  border: 1px dashed rgba(255, 255, 255, 0.16);
+  border-radius: 12px;
+  opacity: 0;
+  transition: opacity 400ms ease;
+  z-index: 5;
+}
+
+.group:hover .pz-sticker-cutline,
+.pz-sticker-tile:hover .pz-sticker-cutline {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-sticker-art,
+  .group:hover .pz-sticker-art,
+  .pz-sticker-tile:hover .pz-sticker-art {
+    transform: none;
+    transition: none;
+  }
+  .pz-sticker-peel {
+    transition: none;
+  }
+}
+
+/* ==== STICKER CORNER CURL + LIGHT EDITOR (V5) ==============================
+   Two additions:
+
+   A) CORNER CURL / PEEL on the sticker cards.
+      Technique (same family as Kitty Giraudel's "Folded Corner With CSS" and
+      the classic page-curl demos): the tile is clipped with a 5-point polygon
+      whose corner notch is driven by a custom property, and a separate
+      triangular "flap" is drawn over that notch to look like the vinyl lifting
+      off the surface.
+        - `clip-path` interpolates between two polygons with the SAME number of
+          points, so the curl can be animated with a plain transition.
+        - `@property` registers --pz-curl as a <length>, which is what makes the
+          custom property itself animatable in Chromium/Safari; browsers without
+          @property still get the two end states, just without the tween.
+        - Only clip-path / transform / opacity change: no layout, no reflow.
+      The curl is intentionally SMALL (26px, ~7% of a card) - the brief asked
+      for a slight fold, not a page turn.
+
+   B) LIGHT EDITOR SURFACES.
+      The editor used near-black panels on a lavender site, so most controls
+      were unreadable. These classes move the editor onto the site palette
+      (--pz-* tokens defined in @theme) while keeping the stage neutral enough
+      for transparent artwork to read correctly.
+   ========================================================================= */
+
+@property --pz-curl {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+/* -------------------------------------------------------------- A) curl */
+
+.pz-curl {
+  --pz-curl: 0px;
+  clip-path: polygon(
+    0% 0%,
+    100% 0%,
+    100% calc(100% - var(--pz-curl)),
+    calc(100% - var(--pz-curl)) 100%,
+    0% 100%
+  );
+  transition: clip-path 460ms cubic-bezier(0.22, 1, 0.36, 1),
+    --pz-curl 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .pz-curl,
+.group:focus-within .pz-curl,
+.pz-curl:hover,
+.pz-curl[data-active="true"] {
+  --pz-curl: 26px;
+}
+
+/* The lifted flap: the back of the vinyl, catching light from the top left. */
+.pz-curl-flap {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 26px;
+  height: 26px;
+  pointer-events: none;
+  clip-path: polygon(100% 0%, 0% 100%, 100% 100%);
+  background: linear-gradient(
+    315deg,
+    #ffffff 0%,
+    #f2f0fa 38%,
+    #d5d1e6 68%,
+    #a9a3c4 100%
+  );
+  filter: drop-shadow(-5px -5px 8px rgba(16, 15, 24, 0.35));
+  border-top-left-radius: 3px;
+  opacity: 0;
+  transform: translate(6px, 6px) rotate(-6deg) scale(0.6);
+  transform-origin: 100% 100%;
+  transition: opacity 300ms ease, transform 460ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.group:hover .pz-curl-flap,
+.group:focus-within .pz-curl-flap,
+.pz-curl[data-active="true"] .pz-curl-flap {
+  opacity: 1;
+  transform: translate(0, 0) rotate(0deg) scale(1);
+}
+
+/* Soft shadow cast by the lifted corner onto the surface underneath. */
+.pz-curl-shadow {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 34px;
+  height: 34px;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 120% at 100% 100%,
+    rgba(16, 15, 24, 0.38) 0%,
+    rgba(16, 15, 24, 0) 70%
+  );
+  opacity: 0;
+  transition: opacity 380ms ease;
+}
+
+.group:hover .pz-curl-shadow,
+.group:focus-within .pz-curl-shadow,
+.pz-curl[data-active="true"] .pz-curl-shadow {
+  opacity: 1;
+}
+
+/* ------------------------------------------------------ B) light editor */
+
+/* Light transparency checkerboard for the editor stage. */
+.pz-checkerboard-light {
+  background-color: #ffffff;
+  background-image:
+    linear-gradient(45deg, rgba(16, 15, 24, 0.055) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(16, 15, 24, 0.055) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(16, 15, 24, 0.055) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(16, 15, 24, 0.055) 75%);
+  background-size: 16px 16px;
+  background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+}
+
+/* Panel: one readable card per step of the editor. */
+.pz-panel {
+  background: var(--pz-surface);
+  border: 1px solid var(--pz-line);
+  border-radius: 16px;
+  box-shadow: 0 1px 2px rgba(16, 15, 24, 0.05);
+}
+
+.pz-panel-head {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1rem;
+  border-bottom: 1px solid var(--pz-line);
+  color: var(--pz-text);
+}
+
+.pz-step-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 999px;
+  background: var(--pz-accent-soft);
+  color: var(--pz-accent);
+  font-size: 0.6875rem;
+  font-weight: 700;
+}
+
+/* Labelled tool button: icon + text, never icon-only. */
+.pz-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.5rem 0.7rem;
+  border-radius: 10px;
+  border: 1px solid var(--pz-line);
+  background: var(--pz-surface);
+  color: var(--pz-text);
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.pz-tool:hover:not(:disabled) {
+  background: var(--pz-surface-alt);
+  border-color: var(--pz-line-strong);
+}
+
+.pz-tool[aria-pressed="true"] {
+  background: var(--pz-accent);
+  border-color: var(--pz-accent);
+  color: var(--pz-on-accent, #ffffff);
+}
+
+.pz-tool:disabled {
+  opacity: 0.42;
+  cursor: not-allowed;
+}
+
+.pz-tool:focus-visible {
+  outline: 2px solid var(--pz-accent);
+  outline-offset: 2px;
+}
+
+/* Numeric / text field inside the editor. */
+.pz-field {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid var(--pz-line);
+  background: var(--pz-surface);
+  color: var(--pz-text);
+  font-size: 0.95rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.pz-field:focus {
+  outline: 2px solid var(--pz-accent);
+  outline-offset: 1px;
+  border-color: var(--pz-accent);
+}
+
+.pz-field:disabled {
+  background: var(--pz-surface-alt);
+  color: var(--pz-muted);
+}
+
+/* Selectable chip: size preset, shape, finish. */
+.pz-chip {
+  border: 1px solid var(--pz-line);
+  background: var(--pz-surface);
+  color: var(--pz-text);
+  border-radius: 12px;
+  transition: background-color 160ms ease, border-color 160ms ease, transform 160ms ease;
+}
+
+.pz-chip:hover {
+  border-color: var(--pz-line-strong);
+  background: var(--pz-surface-alt);
+}
+
+.pz-chip[aria-pressed="true"] {
+  border-color: var(--pz-accent);
+  background: var(--pz-accent-soft);
+}
+
+.pz-chip:focus-visible {
+  outline: 2px solid var(--pz-accent);
+  outline-offset: 2px;
+}
+
+/* Small shape thumbnail drawn purely with clip-path. */
+.pz-shape-preview {
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(140deg, var(--pz-accent) 0%, #7952f3 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-curl,
+  .pz-curl-flap,
+  .pz-curl-shadow {
+    transition: none;
+  }
+}
+
+/* ─── Pz Dropzone (Upload Card) ────────────────────────────── */
+@keyframes pzArrowBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes pzHaloRotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.pz-dropzone {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.75rem 1.25rem;
+  border-radius: 16px;
+  border: 2px dashed var(--pz-line-strong);
+  background: var(--pz-surface-alt);
+  color: var(--pz-text);
+  text-align: center;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 200ms ease, background-color 200ms ease, transform 200ms ease, box-shadow 200ms ease;
+  outline: none;
+}
+
+.pz-dropzone:hover,
+.pz-dropzone:focus-visible,
+.pz-dropzone.is-dragging {
+  border-color: var(--pz-accent);
+  border-style: solid;
+  background: var(--pz-accent-soft);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px rgba(67, 39, 168, 0.18);
+}
+
+.pz-dropzone.is-busy {
+  pointer-events: none;
+  opacity: 0.85;
+}
+
+.pz-dropzone__halo {
+  position: absolute;
+  inset: -50%;
+  pointer-events: none;
+  opacity: 0;
+  background: conic-gradient(from 0deg, transparent, var(--pz-accent-soft), transparent 60%);
+  transition: opacity 300ms ease;
+}
+
+.pz-dropzone:hover .pz-dropzone__halo,
+.pz-dropzone.is-dragging .pz-dropzone__halo {
+  opacity: 0.6;
+  animation: pzHaloRotate 6s linear infinite;
+}
+
+.pz-dropzone__badge {
+  position: relative;
+  z-index: 1;
+  display: inline-grid;
+  place-items: center;
+  width: 3.25rem;
+  height: 3.25rem;
+  border-radius: 9999px;
+  background: var(--pz-surface);
+  border: 1px solid var(--pz-line);
+  color: var(--pz-accent);
+  box-shadow: 0 4px 12px rgba(16, 15, 24, 0.06);
+  transition: transform 200ms ease, background-color 200ms ease, border-color 200ms ease;
+}
+
+.pz-dropzone:hover .pz-dropzone__badge,
+.pz-dropzone.is-dragging .pz-dropzone__badge {
+  transform: scale(1.08);
+  background: var(--pz-accent);
+  color: var(--pz-on-accent, #ffffff);
+  border-color: var(--pz-accent);
+}
+
+.pz-dropzone__arrow {
+  animation: pzArrowBob 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.pz-dropzone:hover .pz-dropzone__arrow {
+  animation-duration: 1.2s;
+}
+
+.pz-dropzone__title {
+  position: relative;
+  z-index: 1;
+  font-size: 0.95rem;
+  font-weight: 750;
+  color: var(--pz-text);
+  margin: 0;
+}
+
+.pz-dropzone__hint {
+  position: relative;
+  z-index: 1;
+  font-size: 0.78125rem;
+  color: var(--pz-muted);
+  max-width: 28rem;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.pz-dropzone__meta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--pz-muted);
+}
+
+.pz-dropzone__cta {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  background: var(--pz-accent);
+  color: var(--pz-on-accent, #ffffff);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  box-shadow: 0 4px 12px rgba(67, 39, 168, 0.25);
+  transition: transform 160ms ease, background-color 160ms ease;
+}
+
+.pz-dropzone:hover .pz-dropzone__cta {
+  transform: scale(1.04);
+  background: var(--pz-accent-hover);
+}
+
+/* ---------- Route chunk fallback (V14) ---------- */
+.pz-route-spinner {
+  width: 26px;
+  height: 26px;
+  border-radius: 999px;
+  border: 2px solid color-mix(in srgb, var(--pz-accent) 24%, transparent);
+  border-top-color: var(--pz-accent);
+  animation: pz-route-spin .85s linear infinite;
+}
+
+@keyframes pz-route-spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-route-spinner { animation-duration: 2.4s; }
+}
+
+/* ---------- Viewport and safe area (V14 Phase 5, applied late) ---------- */
+:root {
+  --pz-vh: 1vh;
+  --pz-safe-top: env(safe-area-inset-top, 0px);
+  --pz-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --pz-safe-left: env(safe-area-inset-left, 0px);
+  --pz-safe-right: env(safe-area-inset-right, 0px);
+}
+
+@supports (height: 100dvh) {
+  :root { --pz-vh: 1dvh; }
+}
+
+/* ---------- Bottom sheet ---------- */
+.pz-sheet {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 60;
+  display: flex;
+  flex-direction: column;
+  max-height: calc(var(--pz-vh) * 92);
+  border-top-left-radius: 18px;
+  border-top-right-radius: 18px;
+  background: var(--pz-surface);
+  border-top: 1px solid var(--pz-line);
+  box-shadow: 0 -18px 44px rgba(0, 0, 0, .42);
+  padding-bottom: var(--pz-safe-bottom);
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+}
+
+.pz-sheet__grip {
+  flex: 0 0 auto;
+  width: 42px; height: 4px;
+  margin: 10px auto 6px;
+  border-radius: 999px;
+  background: var(--pz-line-strong);
+}
+
+.pz-sheet__body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: 0 1rem 1rem;
+}
+
+.pz-sheet__footer {
+  flex: 0 0 auto;
+  padding: .85rem 1rem calc(.85rem + var(--pz-safe-bottom));
+  border-top: 1px solid var(--pz-line);
+  background: var(--pz-surface);
+}
+
+@media (min-width: 768px) {
+  /* Desktop keeps the original side drawer. The sheet is phone-only. */
+  .pz-sheet {
+    position: fixed; top: 0; right: 0; left: auto; bottom: 0;
+    width: min(440px, 100vw);
+    max-height: none;
+    border-radius: 0;
+    border-top: 0;
+    border-left: 1px solid var(--pz-line);
+    box-shadow: -18px 0 44px rgba(0, 0, 0, .42);
+  }
+  .pz-sheet__grip { display: none; }
+}
+
+/* ---------- Utilities ---------- */
+.pz-defer { content-visibility: auto; contain-intrinsic-size: 420px; }
+.pz-compact { font-size: .82rem; letter-spacing: .01em; }
+.pz-handle  { touch-action: none; cursor: grab; }
+.pz-handle:active { cursor: grabbing; }
+
+/* Every interactive element clears the 44 px minimum on touch. */
+@media (hover: none) and (pointer: coarse) {
+  button, [role='button'], a.pz-tap, input[type='checkbox'], input[type='radio'] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .pz-sheet { max-height: calc(var(--pz-vh) * 96); }
+  .pz-sheet__grip { margin: 5px auto 3px; }
+}
+
+/* ---------- Route chunk fallback hold ---------- */
+.pz-route-hold { min-height: 60vh; }
+.pz-page { will-change: auto; }
+@media (prefers-reduced-motion: reduce) { .pz-page { transition: none !important; } }
+
+/* ---------- Mobile artwork sizing (V15) ---------- */
+:root {
+  /* V34: عدد أعمدة شبكة اللوحات على الهاتف. 2 افتراضيًا.
+     غيّر هذا الرقم وحده لإعادة ضبط الموقع كله. */
+  --pz-mobile-cols: 2;
+  /* Mirrors the Tailwind values the grids already use. */
+  --pz-grid-pad: 3rem;   /* px-6 both sides */
+  --pz-grid-gap: 1rem;   /* gap-x-4 */
+}
+
+/* V35: شبكة اللوحات والاستجابة للهواتف. */
+@media (max-width: 639px) {
+  .pz-art-grid {
+    display: grid;
+    grid-template-columns: repeat(var(--pz-mobile-cols, 2), minmax(0, 1fr));
+    justify-items: stretch;
+    align-items: start;
+    column-gap: 0.625rem;
+    row-gap: 1.5rem;
+  }
+
+  .pz-art-grid > * {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;   /* يمنع فيضان النصّ الطويل خارج العمود */
+  }
+
+  /* ثلاثة أعمدة تعني بطاقات أضيق، فيتقلّص النصّ تبعًا لها. */
+  .pz-art-grid > * .pz-card-title { font-size: 0.8125rem; line-height: 1.25; }
+  .pz-art-grid > * .pz-card-price { font-size: 0.8125rem; }
+}
+
+@media (max-width: 639px) {
+  .pz-art-grid[data-cols="3"] > * .pz-card-title { font-size: 0.6875rem; line-height: 1.2; }
+  .pz-art-grid[data-cols="3"] > * .pz-card-price { font-size: 0.6875rem; }
+  .pz-art-grid[data-cols="3"] { column-gap: 0.5rem; row-gap: 1.125rem; }
+}
+
+/* هواتف ضيّقة جدًا (<=340px): عمودان يبقيان، لكن الحواف تضيق أكثر. */
+@media (max-width: 340px) {
+  .pz-art-grid { column-gap: 0.5rem; }
+  .pz-art-grid > * .pz-card-title { font-size: 0.75rem; }
+}
+
+/* ---------- V35: زر الرجوع الموحّد ---------- */
+/* مصدر الحقيقة الوحيد لكل أزرار "رجوع" في الموقع.
+   يطابق MIN_TAP_TARGET_PX = 44 المعرَّف في src/lib/responsive.ts:28 */
+.pz-back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  padding: 0.625rem 1rem 0.625rem 0.75rem;
+  border: 1px solid rgb(255 255 255 / 0.18);
+  border-radius: 9999px;
+  background: rgb(255 255 255 / 0.06);
+  color: inherit;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 160ms ease, border-color 160ms ease, color 160ms ease;
+}
+
+.pz-back-btn__icon { flex: 0 0 auto; }
+.pz-back-btn__label { white-space: nowrap; }
+
+@media (hover: hover) and (pointer: fine) {
+  .pz-back-btn:hover {
+    background: rgb(255 255 255 / 0.12);
+    border-color: rgb(255 255 255 / 0.34);
+  }
+  .pz-back-btn:hover .pz-back-btn__icon { transform: translateX(-2px); }
+  .pz-back-btn__icon { transition: transform 160ms ease; }
+}
+
+/* على اللمس لا يوجد hover: نعوّضه بحدّ أوضح وارتداد عند الضغط. */
+@media (hover: none) and (pointer: coarse) {
+  .pz-back-btn {
+    min-height: 46px;
+    border-color: rgb(255 255 255 / 0.28);
+    background: rgb(255 255 255 / 0.09);
+  }
+  .pz-back-btn:active { transform: scale(0.97); }
+}
+
+.pz-back-btn:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-back-btn,
+  .pz-back-btn__icon { transition: none !important; }
+  .pz-back-btn:active { transform: none !important; }
+}
+
+/* على الشاشات الضيّقة جدًا نُخفي النصّ الطويل ونُبقي أيقونة + "Back". */
+@media (max-width: 380px) {
+  .pz-back-btn__label { font-size: 0.6875rem; }
+}
+
+.pz-crumbs__back.pz-back-btn { padding-inline: 0.75rem; }
+
+/* ---------- Pack builder (V15) ---------- */
+.pz-pack-chooser {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  max-width: 48rem;
+  margin: 0 auto 2rem;
+}
+
+.pz-pack-chooser__card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: .4rem;
+  padding: 1.25rem;
+  text-align: left;
+  border: 1px solid var(--pz-line);
+  background: var(--pz-surface);
+  color: var(--pz-text);
+  transition: border-color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.pz-pack-chooser__card:hover { transform: translateY(-2px); border-color: var(--pz-accent); }
+.pz-pack-chooser__card.is-active {
+  border-color: var(--pz-accent);
+  box-shadow: 0 0 0 1px var(--pz-accent) inset;
+}
+.pz-pack-chooser__icon  { color: var(--pz-accent); }
+.pz-pack-chooser__title { font-weight: 700; letter-spacing: .04em; text-transform: uppercase; font-size: .95rem; }
+.pz-pack-chooser__min   { font-size: .7rem; color: var(--pz-gold); letter-spacing: .1em; text-transform: uppercase; }
+.pz-pack-chooser__blurb { font-size: .78rem; color: var(--pz-muted); line-height: 1.5; }
+
+.pz-picker { border: 1px solid var(--pz-line); background: var(--pz-surface); padding: 1rem; }
+
+.pz-picker__rail {
+  display: flex; gap: .375rem; overflow-x: auto; padding-bottom: .5rem;
+  scrollbar-width: none; -webkit-overflow-scrolling: touch;
+}
+.pz-picker__rail::-webkit-scrollbar { display: none; }
+
+.pz-picker__tab {
+  flex: 0 0 auto; padding: .4rem .75rem; font-size: .72rem;
+  letter-spacing: .08em; text-transform: uppercase;
+  border: 1px solid var(--pz-line); color: var(--pz-muted); white-space: nowrap;
+  min-height: 36px;
+}
+.pz-picker__tab.is-active { border-color: var(--pz-accent); color: var(--pz-text); background: var(--pz-accent-soft); }
+
+.pz-picker__search {
+  display: flex; align-items: center; gap: .5rem; margin: .75rem 0;
+  padding: .5rem .75rem; border: 1px solid var(--pz-line); color: var(--pz-muted);
+}
+.pz-picker__search input {
+  flex: 1; background: transparent; border: 0; outline: none;
+  color: var(--pz-text); font-size: .85rem; min-width: 0;
+}
+
+.pz-picker__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(104px, 1fr));
+  gap: .75rem;
+  max-height: 52vh;
+  overflow-y: auto;
+  padding-right: .25rem;
+  overscroll-behavior: contain;
+}
+
+/* position: relative is load-bearing. .pz-picker__zoom is a SIBLING of
+ * .pz-picker__thumb (a button cannot be nested inside a button), so the thumb's
+ * own positioning context does not contain it. Without this declaration the
+ * zoom control resolves against a distant ancestor, lands outside the cell, and
+ * is clipped by .pz-picker__grid's overflow-y: auto — which is why V17's zoom
+ * looked like it had never been installed. */
+.pz-picker__cell {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: .3rem;
+}
+
+.pz-picker__thumb {
+  position: relative; aspect-ratio: 1 / 1; overflow: hidden;
+  border: 1px solid var(--pz-line); background: var(--pz-surface-alt);
+  transition: border-color .18s ease, transform .18s ease;
+}
+.pz-picker__thumb:hover { transform: translateY(-2px); border-color: var(--pz-accent); }
+.pz-picker__img { width: 100%; height: 100%; object-fit: cover; }
+
+.pz-picker__cell.is-chosen  .pz-picker__thumb { border-color: var(--pz-accent); box-shadow: 0 0 0 2px var(--pz-accent) inset; }
+.pz-picker__cell.is-blocked .pz-picker__thumb { opacity: .35; cursor: not-allowed; }
+
+.pz-picker__badge {
+  position: absolute; top: 5px; right: 5px;
+  width: 20px; height: 20px; border-radius: 999px;
+  display: grid; place-items: center;
+  background: var(--pz-accent); color: #fff;
+}
+
+.pz-picker__meta  { display: flex; justify-content: space-between; gap: .35rem; font-size: .68rem; }
+.pz-picker__title { color: var(--pz-muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pz-picker__price { color: var(--pz-gold); font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+.pz-picker__stepper {
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1px solid var(--pz-line);
+}
+.pz-picker__stepper button {
+  width: 34px; height: 32px; display: grid; place-items: center; color: var(--pz-text);
+}
+.pz-picker__stepper button:disabled { opacity: .3; }
+.pz-picker__stepper span { font-size: .78rem; font-variant-numeric: tabular-nums; }
+
+.pz-picker__empty { padding: 2rem; text-align: center; color: var(--pz-muted); font-size: .85rem; }
+
+/* --- tray --- */
+.pz-tray {
+  position: sticky; bottom: 0; z-index: 30;
+  display: grid; gap: .6rem; padding: .85rem 1rem;
+  padding-bottom: calc(.85rem + var(--pz-safe-bottom, 0px));
+  border: 1px solid var(--pz-line); border-bottom: 0;
+  background: color-mix(in srgb, var(--pz-surface) 94%, transparent);
+  backdrop-filter: blur(12px);
+}
+
+.pz-tray__progress { height: 2px; background: var(--pz-line); overflow: hidden; }
+.pz-tray__progress span {
+  display: block; height: 100%; background: var(--pz-accent);
+  transition: width .3s cubic-bezier(.16,1,.3,1);
+}
+
+.pz-tray__chips { display: flex; gap: .35rem; overflow-x: auto; min-height: 40px; align-items: center; }
+.pz-tray__chips::-webkit-scrollbar { display: none; }
+
+.pz-tray__chip {
+  position: relative; flex: 0 0 auto; width: 38px; height: 38px;
+  border: 1px solid var(--pz-line); overflow: hidden;
+}
+.pz-tray__chip img { width: 100%; height: 100%; object-fit: cover; }
+.pz-tray__chip b {
+  position: absolute; left: 2px; bottom: 2px;
+  padding: 0 4px; font-size: .6rem; border-radius: 3px;
+  background: var(--pz-accent); color: #fff;
+}
+.pz-tray__chip svg { position: absolute; top: 2px; right: 2px; color: #fff; opacity: 0; transition: opacity .15s; }
+.pz-tray__chip:hover svg { opacity: 1; }
+.pz-tray__hint { font-size: .75rem; color: var(--pz-muted); }
+
+.pz-tray__totals { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; }
+.pz-tray__count { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--pz-muted); }
+.pz-tray__was   { font-size: .78rem; color: var(--pz-muted); }
+.pz-tray__save  { font-size: .7rem; padding: 1px 6px; background: var(--pz-accent-soft); color: var(--pz-accent); }
+.pz-tray__now   { font-size: 1.15rem; color: var(--pz-gold); font-variant-numeric: tabular-nums; margin-left: auto; }
+
+.pz-tray__actions { display: flex; gap: .5rem; }
+.pz-tray__clear {
+  padding: 0 .9rem; min-height: 44px; font-size: .72rem;
+  letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid var(--pz-line); color: var(--pz-muted);
+}
+.pz-tray__order {
+  flex: 1; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+  background: var(--pz-accent); color: #fff;
+  font-size: .78rem; letter-spacing: .1em; text-transform: uppercase; font-weight: 700;
+  transition: background .18s ease, opacity .18s ease;
+}
+.pz-tray__order:hover:not(:disabled) { background: var(--pz-accent-hover); }
+.pz-tray__order:disabled { opacity: .45; cursor: not-allowed; }
+
+.pz-tray__gate { font-size: .72rem; color: var(--pz-muted); text-align: center; }
+
+@media (max-width: 767px) {
+  .pz-pack-chooser { grid-template-columns: 1fr; }
+  .pz-picker__grid { grid-template-columns: repeat(auto-fill, minmax(88px, 1fr)); max-height: 46vh; }
+  .pz-tray__now { font-size: 1rem; }
+}
+
+/* ---------- Pack picker thumbnails (V16) ---------- */
+.pz-picker__frame {
+  width: 100%;
+  border-radius: 12px;
+  background: var(--pz-surface-alt);
+}
+.pz-picker__img { object-fit: cover; }
+
+/* ---------- Pack browser (V16) ---------- */
+.pz-picker__top {
+  display: flex; flex-wrap: wrap; align-items: center; gap: .75rem;
+  justify-content: space-between; margin-bottom: 1rem;
+}
+
+.pz-crumbs { display: flex; align-items: center; gap: .5rem; min-width: 0; }
+.pz-crumbs__back {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 28px; height: 28px; border-radius: 999px;
+  border: 1px solid var(--pz-line); color: var(--pz-text);
+  background: var(--pz-surface); flex: none;
+}
+.pz-crumbs__back:hover { border-color: var(--pz-accent); color: var(--pz-accent); }
+.pz-crumbs ol {
+  display: flex; align-items: center; gap: .35rem;
+  list-style: none; margin: 0; padding: 0; min-width: 0;
+  font: 600 10px/1 ui-monospace, monospace; letter-spacing: .12em; text-transform: uppercase;
+}
+.pz-crumbs li { display: flex; align-items: center; gap: .35rem; min-width: 0; }
+.pz-crumbs button { color: var(--pz-muted); white-space: nowrap; }
+.pz-crumbs button:hover { color: var(--pz-accent); }
+.pz-crumbs span[aria-current] {
+  color: var(--pz-text); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis; max-width: 14ch;
+}
+
+.pz-shelf-grid {
+  display: grid; gap: .75rem;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+}
+@media (max-width: 479px) {
+  .pz-shelf-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+.pz-shelf {
+  display: flex; flex-direction: column; gap: .35rem; text-align: left;
+  padding: .5rem; border-radius: 16px;
+  border: 1px solid var(--pz-line); background: var(--pz-surface);
+  transition: border-color .2s ease, transform .2s ease;
+}
+.pz-shelf:hover { border-color: var(--pz-accent); transform: translate3d(0, -2px, 0); }
+.pz-shelf__frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--pz-surface-alt);
+}
+.pz-shelf__frame > img,
+.pz-shelf__frame > div {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pz-shelf__label {
+  font: 700 11px/1.3 ui-monospace, monospace;
+  letter-spacing: .1em; text-transform: uppercase; color: var(--pz-text);
+}
+.pz-shelf__count { font: 500 10px/1 ui-monospace, monospace; color: var(--pz-muted); }
+
+.pz-picker__sentinel {
+  padding: 1.25rem; text-align: center;
+  font: 500 10px/1 ui-monospace, monospace; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--pz-muted);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-shelf { transition: none; }
+  .pz-shelf:hover { transform: none; }
+}
+
+/* ---------- Pack multi-upload (V16) ---------- */
+.pz-packup { display: flex; flex-direction: column; gap: .75rem; }
+
+.pz-packup__zone {
+  display: flex; flex-direction: column; align-items: center; gap: .4rem;
+  padding: 1.75rem 1rem; border-radius: 20px; text-align: center;
+  border: 1.5px dashed var(--pz-line-strong);
+  background: var(--pz-surface); cursor: pointer;
+  transition: border-color .2s ease, background .2s ease;
+}
+.pz-packup__zone:hover,
+.pz-packup__zone.is-dragging { border-color: var(--pz-accent); background: var(--pz-accent-soft); }
+.pz-packup__zone.is-busy { opacity: .6; pointer-events: none; }
+
+.pz-packup__arrow { color: var(--pz-accent); animation: pz-arrow-rise 2.4s ease-in-out infinite; }
+.pz-packup__zone.is-dragging .pz-packup__arrow { animation-duration: .9s; }
+
+.pz-packup__title {
+  font: 700 12px/1.2 ui-monospace, monospace;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--pz-text);
+}
+.pz-packup__hint  { font-size: 11px; color: var(--pz-muted); max-width: 34ch; }
+.pz-packup__meta  { font: 500 10px/1 ui-monospace, monospace; color: var(--pz-muted); }
+
+.pz-packup__warn,
+.pz-packup__error {
+  display: flex; align-items: center; gap: .4rem;
+  font-size: 11px; padding: .5rem .75rem; border-radius: 10px;
+}
+.pz-packup__warn  { color: var(--pz-gold);   background: color-mix(in srgb, var(--pz-gold) 12%, transparent); }
+.pz-packup__error { color: var(--pz-danger); background: color-mix(in srgb, var(--pz-danger) 12%, transparent); }
+
+.pz-packup__remove {
+  position: absolute; top: 6px; right: 6px; z-index: 2;
+  width: 22px; height: 22px; border-radius: 999px;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(0,0,0,.55); color: #fff;
+}
+
+@keyframes pz-arrow-rise {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -4px, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-packup__arrow { animation: none; }
+}
+
+/* ---------- Pack thumbnail zoom (V17) ---------- */
+.pz-picker__zoom {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  z-index: 3;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .55);
+  color: #fff;
+  opacity: 0;
+  transform: translate3d(0, -2px, 0);
+  transition: opacity .18s ease, transform .18s ease, background .18s ease;
+}
+.pz-picker__cell:hover  .pz-picker__zoom,
+.pz-picker__cell:focus-within .pz-picker__zoom,
+.pz-picker__zoom:focus-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+.pz-picker__zoom:hover { background: var(--pz-accent); }
+
+/* Coarse pointers have no hover, so the control must always be visible. */
+@media (hover: none) and (pointer: coarse) {
+  .pz-picker__zoom {
+    opacity: 1;
+    transform: none;
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* ---------- Pack lightbox (V17) ---------- */
+.pz-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 4vw, 40px);
+  background: rgba(8, 8, 12, .78);
+  backdrop-filter: blur(6px);
+  animation: pz-lightbox-veil .2s ease-out both;
+}
+@keyframes pz-lightbox-veil { from { opacity: 0; } to { opacity: 1; } }
+
+.pz-lightbox__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(92vw, 900px);
+  max-height: 92vh;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--pz-surface);
+  border: 1px solid var(--pz-line);
+  box-shadow: var(--pz-shadow);
+  transform-origin: center center;
+}
+
+.pz-lightbox__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 2;
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, .55);
+  color: #fff;
+  transition: background .18s ease;
+}
+.pz-lightbox__close:hover { background: var(--pz-danger); }
+
+.pz-lightbox__stage {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--pz-canvas);
+  padding: clamp(8px, 2vw, 20px);
+}
+/*
+ * The frame is the ArtImage wrapper. All of ArtImage's children are
+ * position:absolute, so the wrapper has zero intrinsic size and, as a
+ * shrink-to-fit flex item, would collapse to 0x0 and paint nothing.
+ *
+ * width:100% gives it a definite inline size, which lets aspect-ratio derive
+ * the block size. max-width then caps that width by the ratio so the derived
+ * height can never exceed --pz-lb-maxh: at the cap the box is exactly
+ * maxh x (maxh * ratio) and the artwork fills it edge to edge with no
+ * letterboxing and no clipped bottom bar.
+ */
+.pz-lightbox__stage { --pz-lb-maxh: 72vh; }
+
+.pz-lightbox__frame {
+  width: 100%;
+  max-width: min(100%, calc(var(--pz-lb-maxh) * var(--pz-lb-ratio, 0.8)));
+  background: transparent;
+}
+.pz-lightbox__frame img { object-fit: contain; }
+
+.pz-lightbox__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: .85rem 1rem;
+  border-top: 1px solid var(--pz-line);
+  background: var(--pz-surface);
+}
+.pz-lightbox__info { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
+.pz-lightbox__title {
+  font: 700 12px/1.3 ui-monospace, monospace;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--pz-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.pz-lightbox__sub { font: 500 11px/1 ui-monospace, monospace; color: var(--pz-muted); }
+
+.pz-lightbox__add {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  min-height: 44px;
+  padding: 0 1.1rem;
+  border-radius: 999px;
+  background: var(--pz-accent);
+  color: #fff;
+  font: 700 11px/1 ui-monospace, monospace;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  flex: none;
+}
+.pz-lightbox__add:hover:not(:disabled) { background: var(--pz-accent-hover); }
+.pz-lightbox__add:disabled { opacity: .4; cursor: not-allowed; }
+
+.pz-lightbox__stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: .6rem;
+  padding: .3rem .5rem;
+  border-radius: 999px;
+  border: 1px solid var(--pz-line);
+  flex: none;
+}
+.pz-lightbox__stepper button {
+  width: 34px;
+  height: 34px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--pz-text);
+}
+.pz-lightbox__stepper button:hover:not(:disabled) { background: var(--pz-accent-soft); }
+.pz-lightbox__stepper button:disabled { opacity: .35; cursor: not-allowed; }
+.pz-lightbox__stepper span {
+  min-width: 2ch;
+  text-align: center;
+  font: 700 12px/1 ui-monospace, monospace;
+  color: var(--pz-text);
+}
+
+@media (max-width: 639px) {
+  .pz-lightbox__panel { width: 100%; max-height: 88vh; border-radius: 16px; }
+  .pz-lightbox__stage { --pz-lb-maxh: 60vh; }
+  .pz-lightbox__bar { flex-direction: column; align-items: stretch; gap: .6rem; }
+  .pz-lightbox__add { justify-content: center; }
+  .pz-lightbox__stepper { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-lightbox { animation: none; }
+  .pz-lightbox__panel { transition: none !important; }
+  .pz-picker__zoom { transition: none; }
+}
+
+/* ---------- 3D cube loader (V20) ----------
+ * Adapted from Uiverse.io by wolf_3808.
+ *
+ * Deviations from the original snippet, all deliberate:
+ *   - namespaced pz-cube (the original `pulse` keyframe collided with Tailwind)
+ *   - height:900px -> content sized (it was breaking the cart drawer layout)
+ *   - 40px cube @ perspective 500px -> 64px @ 320px for a readable depth ratio
+ *   - translateZ 20px -> 32px, which MUST stay at exactly half the face size
+ *     or the six faces stop meeting at the edges
+ *   - added a prefers-reduced-motion path
+ */
+.pz-cube {
+  --pz-cube-size: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(var(--pz-cube-size) * 2.6);
+  perspective: 320px;
+}
+
+.pz-cube__box {
+  width: var(--pz-cube-size);
+  height: var(--pz-cube-size);
+  position: relative;
+  transform-style: preserve-3d;
+  animation: pz-cube-spin 6s infinite linear;
+}
+
+.pz-cube__inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  animation: pz-cube-pulse 1.5s infinite ease-in-out alternate;
+}
+
+.pz-cube__face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: .9;
+  border: 1px solid rgba(255, 255, 255, .2);
+  box-shadow: 0 0 8px rgba(100, 200, 255, .4);
+  backface-visibility: visible;
+}
+
+.pz-cube__face--front {
+  background:
+    linear-gradient(45deg, #ff3366, #ff3366 50%, transparent 50%),
+    linear-gradient(-45deg, #8844ee, #8844ee 50%, transparent 50%);
+  background-size: 10px 10px;
+  transform: translateZ(32px);
+}
+
+.pz-cube__face--back {
+  background:
+    repeating-linear-gradient(0deg, #00ffcc, #00ffcc 3px, transparent 3px, transparent 6px),
+    repeating-linear-gradient(90deg, #00ffcc, #00ffcc 3px, transparent 3px, transparent 6px);
+  transform: rotateY(180deg) translateZ(32px);
+}
+
+.pz-cube__face--right {
+  background:
+    radial-gradient(circle, #ffcc00 20%, transparent 20%),
+    radial-gradient(circle, transparent 20%, #ffcc00 20%, transparent 30%);
+  background-size: 15px 15px;
+  background-position: 0 0, 7px 7px;
+  transform: rotateY(90deg) translateZ(32px);
+}
+
+.pz-cube__face--left {
+  background:
+    linear-gradient(135deg, #ff0066 25%, transparent 25%),
+    linear-gradient(225deg, #ff0066 25%, transparent 25%),
+    linear-gradient(315deg, #ff0066 25%, transparent 25%),
+    linear-gradient(45deg, #ff0066 25%, transparent 25%);
+  background-size: 10px 10px;
+  transform: rotateY(-90deg) translateZ(32px);
+}
+
+.pz-cube__face--top {
+  background: conic-gradient(from 90deg at 50% 50%, #00ff99, #9900ff, #ff0099, #00ff99);
+  transform: rotateX(90deg) translateZ(32px);
+}
+
+.pz-cube__face--bottom {
+  background: repeating-linear-gradient(45deg, #ff6600, #ff6600 5px, #ffcc00 5px, #ffcc00 10px);
+  transform: rotateX(-90deg) translateZ(32px);
+}
+
+@keyframes pz-cube-spin {
+  0%   { transform: rotateX(0)      rotateY(0)      rotateZ(0); }
+  100% { transform: rotateX(360deg) rotateY(720deg) rotateZ(360deg); }
+}
+
+@keyframes pz-cube-pulse {
+  0%   { transform: scale3d(.8, .8, .8); }
+  100% { transform: scale3d(1.1, 1.1, 1.1); }
+}
+
+/* Small phones: a slightly smaller cube keeps the progress text above the fold. */
+@media (max-width: 400px) {
+  .pz-cube { --pz-cube-size: 52px; perspective: 260px; }
+  .pz-cube__face--front  { transform: translateZ(26px); }
+  .pz-cube__face--back   { transform: rotateY(180deg) translateZ(26px); }
+  .pz-cube__face--right  { transform: rotateY(90deg)   translateZ(26px); }
+  .pz-cube__face--left   { transform: rotateY(-90deg)  translateZ(26px); }
+  .pz-cube__face--top    { transform: rotateX(90deg)   translateZ(26px); }
+  .pz-cube__face--bottom { transform: rotateX(-90deg)  translateZ(26px); }
+}
+
+/* Continuous 720deg rotation is a vestibular trigger. Slow it right down and
+   drop the pulse, but do not freeze it — a static loader reads as a hung app. */
+@media (prefers-reduced-motion: reduce) {
+  .pz-cube__box   { animation-duration: 24s; }
+  .pz-cube__inner { animation: none; transform: scale3d(1, 1, 1); }
+}
+
+
+
+
+
+/* ---------------------------------------------------------------------------
+ * أغلفة متعاقبة — تستخدم فقط في بطاقات اختيار المجموعات.
+ * ممنوع استخدامها داخل شبكة اللوحات أو الـlightbox أو المحاكي.
+ * ------------------------------------------------------------------------- */
+.pz-rotc {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  --pz-rotc-fade: 900ms;
+}
+
+.pz-rotc__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* منحنى خروج هادئ: بداية سريعة ثم استقرار طويل — يُقرأ احترافيًا
+     لأنه يشبه حركة مادية لا تبديلًا رقميًا. */
+  transition:
+    opacity var(--pz-rotc-fade, 900ms) cubic-bezier(0.22, 1, 0.36, 1),
+    transform var(--pz-rotc-fade, 900ms) cubic-bezier(0.22, 1, 0.36, 1),
+    filter var(--pz-rotc-fade, 900ms) cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* حالة الولادة للطبقة القادمة. */
+.pz-rotc__layer--enter {
+  opacity: 0;
+  transform: scale(1.06);
+  filter: blur(6px);
+}
+
+/* حالة الوصول — تُطبّق في إطار تالٍ لا في نفس الإطار. */
+.pz-rotc__layer--enter-active {
+  opacity: 1;
+  transform: scale(1);
+  filter: blur(0);
+}
+
+/* الطبقة المستقرة تحت: لا تتحرك ولا تحتاج تحولًا. */
+.pz-rotc__layer--base {
+  opacity: 1;
+  transition: none;
+}
+
+/* احترام إعداد النظام: تجميد كامل لا تحول أسرع. */
+@media (prefers-reduced-motion: reduce) {
+  .pz-rotc__layer {
+    transition: none;
+  }
+  .pz-rotc__layer--enter {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ==========================================================================
+   Aurora background (V33) — خلفية الموقع الحية
+
+   المبدأ: عائلة لون واحدة، خمس درجات، تنزلق أفقيًا ذهابًا وإيابًا.
+   الخاصيتان المتحرّكتان الوحيدتان هما transform و opacity، وكلتاهما
+   تُركّب على الـ GPU: لا reflow، ولا repaint، ولا عمل على الخيط الرئيسي.
+
+   الـ blur ثابت ولا يُحرّك أبدًا — تحريكه يجبر المتصفح على إعادة ترشيح
+   الطبقة كل إطار، وهو أثقل ما يمكن فعله بخلفية.
+
+   لا تقترب من body — المقتطف الأصلي كان يفرض height/flex/overflow عليه
+   وكان سيقتل التمرير في الموقع كله.
+   ========================================================================== */
+
+.pz-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background-color: var(--pz-bg-base);
+  /* layout paint style — وليس strict. strict يضيف size، ولا داعي له مع inset:0. */
+  contain: layout paint style;
+}
+
+.pz-bg__layer {
+  position: absolute;
+  display: block;
+  pointer-events: none;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+/* الطبقة أ — شرائط الدرجات. هذه هي التي تعطي «التبدّل من جانب لجانب».
+   عرضها 240vw وتنزلق ±13vw، فمسافة الشريط الواحد ≈ 40vw:
+   أي أن كل نقطة على الشاشة تعبر نحو ثلثي شريط — تغيّر درجة محسوس وهادئ معًا. */
+.pz-bg__layer--a {
+  top: -25vh;
+  left: -70vw;
+  width: 240vw;
+  height: 150vh;
+  background: linear-gradient(
+    100deg,
+    var(--pz-bg-t1)   0%,
+    var(--pz-bg-t2)  16%,
+    var(--pz-bg-t3)  32%,
+    var(--pz-bg-t4)  46%,
+    var(--pz-bg-t3)  60%,
+    var(--pz-bg-t2)  76%,
+    var(--pz-bg-t1) 100%
+  );
+  filter: blur(72px);
+  opacity: 1;
+  animation: pzBgDriftA 34s ease-in-out infinite alternate;
+}
+
+/* الطبقة ب — عمق. multiply بدرجة من نفس العائلة يُعمّق دون أن يُدخل لونًا جديدًا.
+   تسير عكس الطبقة أ وبمدة مختلفة (47s مقابل 34s)، فلا تتزامن الدورتان
+   إلا كل مضاعف مشترك طويل — فيبدو المشهد غير متكرر للعين.
+   ألوان الإيقاف الشفافة مكتوبة rgba من نفس اللون وليس transparent،
+   لأن transparent تعني أسود شفّاف وتترك حافة رمادية عند التدرّج. */
+.pz-bg__layer--b {
+  top: -20vh;
+  left: -40vw;
+  width: 180vw;
+  height: 140vh;
+  background:
+    radial-gradient(52% 46% at 34% 40%,
+      rgba(188, 172, 234, 0.95) 0%,
+      rgba(188, 172, 234, 0)   68%),
+    radial-gradient(46% 42% at 72% 66%,
+      rgba(205, 194, 240, 0.90) 0%,
+      rgba(205, 194, 240, 0)   70%);
+  filter: blur(84px);
+  opacity: 0.55;
+  mix-blend-mode: multiply;
+  animation: pzBgDriftB 47s ease-in-out infinite alternate;
+}
+
+/* الحجاب — أبيض خالص، ويلمس الأطراف فقط.
+   من 24% إلى 76% من ارتفاع الشاشة الشفافية صفر تمامًا:
+   أي أن 52% من الشاشة ترى الأورورا بـ 100% من قوتها. */
+.pz-bg__veil {
+  position: absolute;
+  inset: 0;
+  display: block;
+  pointer-events: none;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.44)   0%,
+    rgba(255, 255, 255, 0.00)  24%,
+    rgba(255, 255, 255, 0.00)  76%,
+    rgba(255, 255, 255, 0.30) 100%
+  );
+}
+
+/* الانزلاق الأفقي. scale طفيف يمنع ظهور حافة الطبقة عند أقصى ازاحة. */
+@keyframes pzBgDriftA {
+  from { transform: translate3d(-13vw, -1.5vh, 0) scale(1.02); }
+  to   { transform: translate3d( 13vw,  1.5vh, 0) scale(1.06); }
+}
+
+@keyframes pzBgDriftB {
+  from { transform: translate3d( 11vw,  3vh, 0) scale(1.05); }
+  to   { transform: translate3d(-11vw, -3vh, 0) scale(1.00); }
+}
+
+/* الحالة الساكنة — حركة مقلّصة أو شبكة بطيئة أو توفير بيانات.
+   تُوقف الحركة فقط وتُثبّت وضعًا جميلًا. لا تحذف الطبقات:
+   حذفها يعني أن من يطلب تقليل الحركة يُعاقَب بموقع أقبح. */
+.pz-bg--still .pz-bg__layer--a,
+.pz-bg--still .pz-bg__layer--b { animation: none; }
+.pz-bg--still .pz-bg__layer--a { transform: translate3d(0, 0, 0) scale(1.04); }
+.pz-bg--still .pz-bg__layer--b { transform: translate3d(0, 0, 0) scale(1.02); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-bg__layer--a,
+  .pz-bg__layer--b { animation: none; }
+  .pz-bg__layer--a { transform: translate3d(0, 0, 0) scale(1.04); }
+  .pz-bg__layer--b { transform: translate3d(0, 0, 0) scale(1.02); }
+}
+
+/* الهاتف: طبقة واحدة تكفي. الثانية غير مرئية عمليًا وتدفع ثمنًا كاملاً
+   في الترشيح والمزج. والـ blur أقل لأن ترشيح 72px على GPU محمول مكلف. */
+@media (max-width: 767px) {
+  .pz-bg__layer--b { display: none; }
+  .pz-bg__layer--a {
+    filter: blur(56px);
+    animation-duration: 40s;
+  }
+}
+
+/* ==========================================================================
+   Upload card (V31) — بطاقة رفع الصورة ثلاثية الأبعاد
+   مقتبسة من Uiverse.io by Smit-Prajapati — أعيد تلوينها بأبيض/بنفسجي
+   وتسمية كل أصنافها بـ pz- وحذف أزرار التواصل الاجتماعي.
+   ========================================================================== */
+
+.pz-upload {
+  width: 100%;
+  max-width: 460px;
+  height: 340px;
+  /* منظور أبعد لبطاقة أعرض — 1000px على 460px يشوّه الزاوية البعيدة. */
+  perspective: 1400px;
+  margin-inline: auto;
+}
+
+.pz-upload__card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  padding: 0;
+  display: block;
+  text-align: start;
+  cursor: pointer;
+  border-radius: 44px;
+  background: linear-gradient(135deg, #FFFFFF 0%, #C9B6FF 55%, #9B79FF 100%);
+  transform-style: preserve-3d;
+  transition: transform 0.5s ease-in-out, box-shadow 0.5s ease-in-out;
+  box-shadow:
+    rgba(67, 39, 168, 0) 40px 50px 25px -40px,
+    rgba(67, 39, 168, 0.18) 0px 25px 25px -5px;
+}
+
+.pz-upload__card:focus-visible {
+  outline: 3px solid var(--pz-accent);
+  outline-offset: 4px;
+}
+
+.pz-upload__glass {
+  position: absolute;
+  inset: 8px;
+  border-radius: 48px;
+  border-top-right-radius: 100%;
+  background: linear-gradient(0deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.88) 100%);
+  border-left: 1px solid #FFFFFF;
+  border-bottom: 1px solid #FFFFFF;
+  transform: translate3d(0, 0, 25px);
+  transform-style: preserve-3d;
+  transition: all 0.5s ease-in-out;
+}
+
+/*
+ * النص يبدأ تحت الحلقات، لا بجانبها.
+ *
+ * المحاولة السابقة وضعته عند padding-top: 96px في عمود ضيق يسارًا،
+ * والحلقة الأولى تمتد إلى y = 178 — فتقاطعا حتمًا.
+ * الآن padding-top: 188px يبدأ بعد الحلقة بـ 10px، والنص يأخذ عرض البطاقة كله.
+ */
+.pz-upload__content {
+  position: relative;
+  padding: 188px 36px 0 34px;
+  transform: translate3d(0, 0, 26px);
+}
+
+.pz-upload__title {
+  display: block;
+  color: var(--pz-accent);
+  font-weight: 900;
+  font-size: 22px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.pz-upload__text {
+  display: block;
+  margin-top: 8px;
+  color: var(--pz-muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.pz-upload__bottom {
+  position: absolute;
+  bottom: 20px;
+  left: 22px;
+  right: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 12px;
+  transform: translate3d(0, 0, 26px);
+  transform-style: preserve-3d;
+}
+
+.pz-upload__formats {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--pz-muted);
+  white-space: nowrap;
+  /* يتقلّص قبل زر الإجراء إذا ضاقت البطاقة، ولا يدفعه خارجها. */
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pz-upload__action {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--pz-accent);
+  /* لا ينكسر إلى سطرين أبدًا — هذا ما ظهر في لقطة الشاشة. */
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 0.2s ease-in-out;
+}
+
+.pz-upload__card:hover .pz-upload__action {
+  transform: translate3d(0, 0, 10px);
+}
+
+.pz-upload__action svg {
+  fill: none;
+  stroke: var(--pz-accent);
+  stroke-width: 3px;
+  max-height: 14px;
+}
+
+/* —— الحلقات المدارية — متروكة كما هي تمامًا بطلب المالك —— */
+.pz-upload__rings {
+  position: absolute;
+  top: 0;
+  right: 0;
+  transform-style: preserve-3d;
+}
+
+.pz-upload__ring {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: rgba(121, 82, 243, 0.16);
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
+  box-shadow: rgba(100, 100, 111, 0.18) -10px 10px 20px 0px;
+  transition: all 0.5s ease-in-out;
+}
+
+.pz-upload__ring--1 { width: 170px; top:  8px; right:  8px; transform: translate3d(0, 0, 20px); }
+.pz-upload__ring--2 { width: 140px; top: 10px; right: 10px; transform: translate3d(0, 0, 40px);
+  -webkit-backdrop-filter: blur(1px); backdrop-filter: blur(1px); transition-delay: 0.4s; }
+.pz-upload__ring--3 { width: 110px; top: 17px; right: 17px; transform: translate3d(0, 0, 60px); transition-delay: 0.8s; }
+.pz-upload__ring--4 { width:  80px; top: 23px; right: 23px; transform: translate3d(0, 0, 80px); transition-delay: 1.2s; }
+.pz-upload__ring--5 { width:  50px; top: 30px; right: 30px; transform: translate3d(0, 0, 100px);
+  display: grid; place-content: center; transition-delay: 1.6s; background: var(--pz-accent); }
+
+.pz-upload__ring--5 svg {
+  width: 22px;
+  height: 22px;
+  fill: none;
+  stroke: #FFFFFF;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* —— التفاعل: إمالة ثلاثية وارتفاع الحلقات —— */
+.pz-upload__card:hover,
+.pz-upload__card:focus-visible,
+.pz-upload.is-dragging .pz-upload__card {
+  transform: rotate3d(1, 1, 0, 20deg);
+  box-shadow:
+    rgba(67, 39, 168, 0.26) 30px 50px 25px -40px,
+    rgba(67, 39, 168, 0.10) 0px 25px 30px 0px;
+}
+
+.pz-upload__card:hover .pz-upload__ring--2,
+.pz-upload.is-dragging .pz-upload__ring--2 { transform: translate3d(0, 0, 60px); }
+.pz-upload__card:hover .pz-upload__ring--3,
+.pz-upload.is-dragging .pz-upload__ring--3 { transform: translate3d(0, 0, 80px); }
+.pz-upload__card:hover .pz-upload__ring--4,
+.pz-upload.is-dragging .pz-upload__ring--4 { transform: translate3d(0, 0, 100px); }
+.pz-upload__card:hover .pz-upload__ring--5,
+.pz-upload.is-dragging .pz-upload__ring--5 { transform: translate3d(0, 0, 120px); }
+
+.pz-upload.is-busy .pz-upload__card {
+  pointer-events: none;
+  opacity: 0.86;
+}
+
+/* —— اللوحي والشاشات المتوسطة ——
+   الحلقات تصغر مع البطاقة وإلا عاد التقاطع نفسه.
+   كل قيمة أدناه هي الأصل × 0.78 تقريبًا، فتبقى النسب والشكل كما هو. */
+@media (max-width: 520px) {
+  .pz-upload { max-width: 340px; height: 292px; perspective: 1100px; }
+  .pz-upload__card { border-radius: 36px; }
+  .pz-upload__glass { border-radius: 40px; border-top-right-radius: 100%; }
+  .pz-upload__content { padding: 152px 26px 0 26px; }
+  .pz-upload__title { font-size: 19px; }
+  .pz-upload__text { font-size: 13px; }
+  .pz-upload__bottom { left: 16px; right: 16px; bottom: 16px; padding: 8px 10px; gap: 10px; }
+  .pz-upload__formats { font-size: 9.5px; }
+  .pz-upload__action { font-size: 11.5px; }
+
+  .pz-upload__ring--1 { width: 134px; top:  6px; right:  6px; }
+  .pz-upload__ring--2 { width: 110px; top:  8px; right:  8px; }
+  .pz-upload__ring--3 { width:  87px; top: 13px; right: 13px; }
+  .pz-upload__ring--4 { width:  63px; top: 18px; right: 18px; }
+  .pz-upload__ring--5 { width:  40px; top: 24px; right: 24px; }
+  .pz-upload__ring--5 svg { width: 18px; height: 18px; }
+}
+
+/* —— اللمس ——
+   لا hover على اللمس، فالإمالة تعلق بعد أول لمسة. نعطي العمق ثابتًا بدلها. */
+@media (hover: none) and (pointer: coarse) {
+  .pz-upload__card { transform: rotate3d(1, 1, 0, 9deg); }
+  .pz-upload__card:hover { transform: rotate3d(1, 1, 0, 9deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pz-upload__card,
+  .pz-upload__ring,
+  .pz-upload__action { transition: none; }
+  .pz-upload__card:hover { transform: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   V36 — المحاكي (View in Room) في وضع الهاتف الفولسكرين
+   كل ما تحت هذا السطر معزول داخل @media (max-width: 767px)
+   ولا يمسّ الحاسوب إطلاقًا. للتراجع: احذف الكتلة كاملة.
+   ══════════════════════════════════════════════════════════════ */
+
+@media (max-width: 767px) {
+  /* الغلاف: ارتفاع الشاشة بالضبط، لا أكثر ولا أقل.
+     dvh لا vh: على iOS يتقلّص شريط العنوان أثناء التمرير،
+     و100vh يحسب الحالة الموسّعة فيقصّ أسفل الصفحة. */
+  .pz-vz-shell {
+    height: 100dvh;
+    max-height: 100dvh;
+    overflow: hidden;          /* ط2 — لا تمرير */
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* احتياطي للمتصفّحات بلا دعم dvh (Safari < 15.4). */
+  @supports not (height: 100dvh) {
+    .pz-vz-shell {
+      height: calc(var(--pz-vh, 1vh) * 100);
+      max-height: calc(var(--pz-vh, 1vh) * 100);
+    }
+  }
+
+  .pz-vz-inner {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;             /* حاسم: بدونه يتمدّد الابن ويعيد التمرير */
+    max-width: none;
+  }
+
+  .pz-vz-body {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+    min-height: 0;
+  }
+
+  /* المسرح يبتلع كل ما تبقّى بعد الشريط السفلي. */
+  /* V37 — column لا row: لو أضيف ابن ثانٍ مستقبلًا (تلميح، شارة…)
+     يقف فوق المسرح لا بجانبه، ويبقى المسرح مالك الارتفاع المتبقّي. */
+  .pz-vz-stage-wrap {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* المسرح هو الوحيد الذي يتمدّد؛ أي إخوة له يأخذون مقاسهم الطبيعي. */
+  .pz-vz-stage-wrap > *:not(.pz-vz-stage) {
+    flex: 0 0 auto;
+  }
+
+  .pz-vz-stage {
+    flex: 1 1 auto;
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: auto;        /* يبطل aspect-[16/10] */
+    border: 0;
+    border-radius: 0;
+  }
+
+  /* ── حبّة رفع الجدار (ط7): أصغر بكثير من البطاقة القديمة ── */
+  .pz-vz-wallpill,
+  .pz-vz-roompill {
+    position: absolute;
+    bottom: 0.75rem;
+    z-index: 20;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    min-height: 34px;          /* مرئي صغير… */
+    padding: 0 0.75rem;
+    border-radius: 999px;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #fff;
+    font-size: 0.6875rem;
+    letter-spacing: 0.06em;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  /* …ومنطقة لمس ≥ 44px عبر عنصر زائف شفّاف. */
+  .pz-vz-wallpill::after,
+  .pz-vz-roompill::after {
+    content: '';
+    position: absolute;
+    inset: -5px;
+    border-radius: 999px;
+  }
+
+  .pz-vz-wallpill  { left: 0.75rem; }
+  .pz-vz-roompill  { right: 0.75rem; }
+
+  /* ── الشريط السفلي ── */
+  /* V37 — سقف صلب: مهما أُضيف لاحقًا للشريط، لن يبتلع المسرح.
+     الفائض يُمرَّر داخل الشريط وحده، لا داخل الصفحة. */
+  .pz-vz-dock {
+    flex: 0 0 auto;
+    background: var(--color-ui-surface, #fff);
+    border-top: 1px solid var(--color-ui-line, rgba(0,0,0,0.12));
+    padding: 0.5rem 0.75rem calc(0.5rem + env(safe-area-inset-bottom));
+    max-height: 38vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+
+  .pz-vz-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .pz-vz-tool {
+    min-height: 44px;          /* MIN_TAP_TARGET_PX */
+    flex: 1 1 auto;
+    padding: 0 0.75rem;
+    border: 1px solid var(--color-ui-line, rgba(0,0,0,0.12));
+    border-radius: 0.25rem;
+    background: var(--color-ui-surface-alt, rgba(0,0,0,0.03));
+    font-size: 0.75rem;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .pz-vz-tool--icon {
+    flex: 0 0 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .pz-vz-tool:disabled { opacity: 0.35; }
+
+  /* الهاتف أفقيًا: الشريط ينكمش حتى تبقى اللوحة مرئية. */
+  @media (orientation: landscape) and (max-height: 480px) {
+    .pz-vz-toolbar { display: none; }
+    .pz-vz-dock    { padding: 0.25rem 0.5rem; }
+  }
+
+  html.pz-vz-lock {
+    overflow: hidden;
+    overscroll-behavior: none;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  /* V37 — على اللمس لا يوجد hover؛ الشارة تبقى مرئية دائمًا. */
+  .pz-art-grid .group .opacity-0.group-hover\:opacity-100 { opacity: 1; }
+}
+
+@media (max-width: 767px) {
+  .pz-mv {
+    position: fixed;
+    inset: 0;
+    z-index: 45;
+    display: grid;
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    width: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    color: var(--color-ui-text);
+    background: var(--pz-bg-base);
+  }
+
+  @supports not (height: 100dvh) {
+    .pz-mv { height: calc(var(--pz-vh, 1vh) * 100); }
+  }
+
+  .pz-mv-header {
+    display: grid;
+    grid-template-columns: 44px minmax(0, 1fr) 44px;
+    align-items: center;
+    gap: .625rem;
+    min-height: 58px;
+    padding: max(.45rem, env(safe-area-inset-top)) .75rem .45rem;
+    background: color-mix(in srgb, var(--color-ui-surface) 90%, transparent);
+    border-bottom: 1px solid var(--color-ui-line);
+    backdrop-filter: blur(16px);
+  }
+
+  .pz-mv-heading { min-width: 0; text-align: center; }
+  .pz-mv-heading strong,
+  .pz-mv-heading span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .pz-mv-heading strong { font-size: .82rem; letter-spacing: .08em; text-transform: uppercase; color: var(--color-ui-text); }
+  .pz-mv-heading span { margin-top: 2px; color: var(--color-ui-muted); font-size: .68rem; }
+
+  .pz-mv-stage {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
+    overflow: hidden;
+    touch-action: none;
+    user-select: none;
+    background: #d9d3c7;
+  }
+
+  .pz-mv-wall-fallback,
+  .pz-mv-wall-image { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .pz-mv-wall-image { z-index: 1; object-fit: cover; }
+  .pz-mv-wall-fallback {
+    z-index: 0;
+    background: linear-gradient(180deg, #eeeae1 0 72%, #c4b8a5 72% 100%);
+  }
+  .pz-mv-wall-line { position:absolute; left:0; right:0; top:72%; height:1px; background:rgba(0,0,0,.14); }
+  .pz-mv-floor { position:absolute; left:-10%; right:-10%; bottom:-16%; height:42%; background:linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.16)); transform:perspective(280px) rotateX(55deg); }
+
+  .pz-mv-art {
+    position: absolute;
+    z-index: 5;
+    overflow: visible;
+    transform-origin: center;
+    will-change: transform, left, top;
+  }
+  .pz-mv-art img { display:block; width:100%; height:100%; object-fit:cover; pointer-events:none; }
+  .pz-mv-art > img { overflow:hidden; box-shadow: 0 10px 28px rgba(0,0,0,.34); }
+
+  .pz-mv-handles {
+    position: absolute;
+    inset: 0;
+    z-index: 10;
+    pointer-events: none;
+  }
+
+  .pz-mv-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 2px solid var(--color-ui-accent);
+    border-radius: 999px;
+    background: var(--color-ui-surface);
+    box-shadow: 0 1px 5px rgba(20,20,28,.35);
+    pointer-events: auto;
+    touch-action: none;
+  }
+
+  .pz-mv-handle::after {
+    content: '';
+    position: absolute;
+    inset: -14px;
+    border-radius: 999px;
+  }
+
+  .pz-mv-handle--nw { left:0; top:0; transform:translate(-50%,-50%); cursor:nwse-resize; }
+  .pz-mv-handle--ne { right:0; top:0; transform:translate(50%,-50%); cursor:nesw-resize; }
+  .pz-mv-handle--se { right:0; bottom:0; transform:translate(50%,50%); cursor:nwse-resize; }
+  .pz-mv-handle--sw { left:0; bottom:0; transform:translate(-50%,50%); cursor:nesw-resize; }
+  .pz-mv-handle--n  { left:50%; top:0; transform:translate(-50%,-50%); cursor:ns-resize; }
+  .pz-mv-handle--s  { left:50%; bottom:0; transform:translate(-50%,50%); cursor:ns-resize; }
+  .pz-mv-handle--w  { left:0; top:50%; transform:translate(-50%,-50%); cursor:ew-resize; }
+  .pz-mv-handle--e  { right:0; top:50%; transform:translate(50%,-50%); cursor:ew-resize; }
+
+  .pz-mv-hint {
+    position:absolute;
+    z-index:8;
+    left:50%;
+    bottom:.7rem;
+    transform:translateX(-50%);
+    padding:.35rem .65rem;
+    border-radius:999px;
+    background:rgba(20,20,28,.78);
+    color:#fff;
+    font-size:.65rem;
+    white-space:nowrap;
+    pointer-events:none;
+  }
+
+  .pz-mv-dock {
+    min-width:0;
+    padding:.55rem .75rem calc(.55rem + env(safe-area-inset-bottom));
+    background: var(--color-ui-surface);
+    border-top:1px solid var(--color-ui-line);
+  }
+  .pz-mv-tools,
+  .pz-mv-buy-row { display:flex; align-items:center; gap:.5rem; }
+  .pz-mv-tools { margin-bottom:.55rem; }
+  .pz-mv-buy-row { justify-content:space-between; }
+
+  .pz-mv-icon-button,
+  .pz-mv-secondary-button,
+  .pz-mv-buy-button {
+    min-height:44px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:.4rem;
+    border-radius:10px;
+    cursor:pointer;
+  }
+  .pz-mv-icon-button { flex:0 0 44px; width:44px; border:1px solid var(--color-ui-line); background: var(--color-ui-surface-alt); color: var(--color-ui-text); }
+  .pz-mv-secondary-button { flex:1 1 0; padding:0 .7rem; border:1px solid var(--color-ui-line); background: var(--color-ui-surface-alt); color: var(--color-ui-text); font-size:.72rem; font-weight:650; }
+  .pz-mv-price { min-width:0; flex:1 1 auto; }
+  .pz-mv-price span { display:block; color: var(--color-ui-muted); font-size:.62rem; }
+  .pz-mv-price strong { display:block; margin-top:2px; font-size:1rem; color: var(--color-ui-text); }
+  .pz-mv-buy-button { flex:0 0 auto; padding:0 1rem; border:0; background: var(--color-ui-accent); color: var(--color-ui-on-accent); font-size:.75rem; font-weight:750; }
+
+  .pz-mpd {
+    position:fixed;
+    inset:0;
+    z-index:70;
+    display:grid;
+    grid-template-rows:auto minmax(0,1fr) auto;
+    height:100dvh;
+    overflow:hidden;
+    background: var(--pz-bg-base);
+    color: var(--color-ui-text);
+  }
+  .pz-mpd-header {
+    display:grid;
+    grid-template-columns:44px 1fr 44px;
+    align-items:center;
+    min-height:58px;
+    padding:max(.45rem, env(safe-area-inset-top)) .75rem .45rem;
+    border-bottom:1px solid var(--color-ui-line);
+    background: color-mix(in srgb, var(--color-ui-surface) 88%, transparent);
+    backdrop-filter: blur(16px);
+  }
+  .pz-mpd-header > span { text-align:center; font-size:.7rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color: var(--color-ui-text); }
+  
+  .pz-mpd-close {
+    width: 44px;
+    height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-ui-line);
+    border-radius: 12px;
+    background: var(--color-ui-surface);
+    color: var(--color-ui-text);
+    cursor: pointer;
+  }
+
+  .pz-mpd-body {
+    min-height:0;
+    display:grid;
+    grid-template-rows:minmax(0,1fr) auto;
+    gap:.75rem;
+    padding:.75rem 1rem;
+    overflow:hidden;
+    background: radial-gradient(circle at 18% 10%, var(--color-ui-accent-soft), transparent 46%), var(--pz-bg-base);
+  }
+  .pz-mpd-art-wrap { min-height:0; display:flex; align-items:center; justify-content:center; position:relative; }
+  .pz-mpd-art-image {
+    width:auto !important;
+    max-width:100%;
+    height:100% !important;
+    max-height:100%;
+    background:transparent !important;
+  }
+  .pz-mpd-copy { min-width:0; }
+  .pz-mpd-copy p { margin:0 0 .25rem; color: var(--color-ui-accent); font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; font-weight: 600; }
+  .pz-mpd-copy h2 { margin:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-size:clamp(1.2rem,5vw,1.7rem); line-height:1.1; color: var(--color-ui-text); }
+  .pz-mpd-copy span { display:block; margin-top:.25rem; color: var(--color-ui-muted); font-size:.72rem; }
+  .pz-mpd-footer {
+    padding:.7rem 1rem calc(.7rem + env(safe-area-inset-bottom));
+    border-top:1px solid var(--color-ui-line);
+    background: var(--color-ui-surface);
+  }
+  .pz-mpd-price { display:flex; align-items:baseline; justify-content:space-between; margin-bottom:.55rem; }
+  .pz-mpd-price span { color: var(--color-ui-muted); font-size:.68rem; text-transform:uppercase; }
+  .pz-mpd-price strong { color: var(--color-ui-accent); font-size:1.2rem; }
+  .pz-mpd-actions { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; }
+  .pz-mpd-actions button { min-height:48px; padding:.4rem .6rem; border-radius:10px; font-size:.7rem; font-weight:750; text-transform:uppercase; letter-spacing:.06em; cursor: pointer; }
+  .pz-mpd-actions button:first-child { border:1px solid var(--color-ui-line-strong); background: var(--color-ui-surface); color: var(--color-ui-text); }
+  .pz-mpd-actions button:last-child { border:1px solid var(--color-ui-accent); background: var(--color-ui-accent); color: var(--color-ui-on-accent); }
+}
+

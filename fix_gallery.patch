@@ -1,0 +1,72 @@
+--- src/components/GalleryView.tsx
++++ src/components/GalleryView.tsx
+@@ -79,48 +79,6 @@
+   const [selectedSubCategory, setSelectedSubCategory] = useState<string | null>(null);
+   const [isSubCategoryConfirmed, setIsSubCategoryConfirmed] = useState<boolean>(false);
+ 
+-  // Your Art States
+-  const [isYourArtView, setIsYourArtView] = useState<boolean>(false);
+-  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+-  const [customTitle, setCustomTitle] = useState<string>('');
+-  const [selectedSize, setSelectedSize] = useState<SizeCategory>('Medium');
+-  const [selectedFrame, setSelectedFrame] = useState<FramingOption>(FRAMING_OPTIONS[0]);
+-  const [isDragging, setIsDragging] = useState<boolean>(false);
+-
+-  const activeSizeOpt = useMemo(() => CUSTOM_SIZE_OPTIONS.find(o => o.value === selectedSize) || CUSTOM_SIZE_OPTIONS[1], [selectedSize]);
+-  const basePrice = activeSizeOpt.price;
+-  const totalCustomPrice = basePrice + selectedFrame.price;
+-
+-  const handleFileUpload = (file: File) => {
+-    if (!file.type.startsWith('image/')) {
+-      alert('Please upload an image file.');
+-      return;
+-    }
+-    const reader = new FileReader();
+-    reader.onload = (e) => {
+-      setUploadedImage(e.target?.result as string);
+-    };
+-    reader.readAsDataURL(file);
+-  };
+-
+-  const handleAddToCartClick = () => {
+-    if (!uploadedImage || !onAddToCart) return;
+-    const customPainting: Painting = {
+-      id: `custom-art-${Date.now()}`,
+-      title: customTitle.trim() || 'My Custom Board',
+-      artistId: 'custom',
+-      artistName: 'Your Art Bespoke Service',
+-      year: new Date().getFullYear(),
+-      style: 'Textured',
+-      sizeCategory: selectedSize,
+-      widthCm: activeSizeOpt.width,
+-      heightCm: activeSizeOpt.height,
+-      price: totalCustomPrice,
+-      story: 'Bespoke hand-crafted wall art transformed from your digital image upload into a premium physical gallery-wrapped wooden board. Laminated and stylized to perfection.',
+-      imageUrl: uploadedImage,
+-      colorPalette: ['#ffffff', '#000000', '#aaaaaa'],
+-      paletteNames: ['Light', 'Dark', 'Tone'],
+-    };
+-
+-    onAddToCart(customPainting, selectedFrame);
+-    setUploadedImage(null);
+-    setCustomTitle('');
+-    setIsYourArtView(false);
+-  };
+-
+-  const generateWhatsAppCheckoutLink = (phone: string = '212652297244') => {
+-    const titleText = customTitle.trim() || 'My Custom Board';
+-    const message =
+-      `*New Bespoke Order Inquiry*\n` +
+-      `🖼️ *Artwork Title:* ${titleText}\n` +
+-      `📏 *Dimensions & Scale:* ${activeSizeOpt.label} (${activeSizeOpt.dimensions})\n` +
+-      `🖼️ *Luxe Framing Border:* ${selectedFrame.name} (${selectedFrame.price === 0 ? 'Included' : \`+$${selectedFrame.price}\`})\n` +
+-      `💰 *Total Price Estimate:* $${totalCustomPrice}\n\n` +
+-      `*Uploaded Image Status:*\n` +
+-      `✅ Custom Image Selected by Client\n` +
+-      `📎 *Note:* I am sending my uploaded image right below in this WhatsApp conversation for your atelier craftsmen!\n` +
+-      `----------------------------------\n` +
+-      `Please confirm my custom order and send me payment & production details. Thank you!`;
+-    return \`https://wa.me/\${phone}?text=\${encodeURIComponent(message)}\`;
+-  };
+-
+   const [selectedSizes, setSelectedSizes] = useState<SizeCategory[]>([]);
