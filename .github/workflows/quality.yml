@@ -30,7 +30,7 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          VITE_BASE_PATH: /prism/
+          VITE_BASE_PATH: /
       - name: Catalog audit
         run: npm run audit:catalog
         continue-on-error: true

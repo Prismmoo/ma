@@ -37,7 +37,13 @@ jobs:
       - name: Build
         run: npm run build
         env:
+          VITE_BASE_PATH: /
           VITE_ORDER_WEB_APP_URL: ${{ secrets.VITE_ORDER_WEB_APP_URL }}
+
+      - name: Guard against wrong base path
+        run: |
+          grep -q '/assets/' dist/index.html \
+            || { echo "::error::dist/index.html does not reference / — wrong base"; exit 1; }
 
       - name: Verify SEO files reached dist
         run: |

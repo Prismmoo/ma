@@ -1,44 +1,46 @@
-# 🚀 دليل النشر — PRISM (GitHub Pages)
+# النشر — PRISM
 
-## 📌 الرابط الإنتاجي
-- **الموقع المباشر:** `https://noureddinelmobaraki-web.github.io/prism/`
+- **الموقع المباشر:** https://prismmoo.github.io/
+- **المستودع:** https://github.com/Prismmoo/prismmoo.github.io
 
-## ⚙️ إعداد مسار القاعدة (`base`)
-يتم استضافة التطبيق على GitHub Pages تحت مسار المجلد `prism`.
-- تم ضبط `base` في `vite.config.ts` ليكون افتراضياً `/prism/` أو يُقرأ من المتغير `VITE_BASE_PATH`.
-- سير عمل GitHub Actions يحقن تلقائياً `VITE_BASE_PATH: /prism/` وقت البناء لضمان تحميل جميع الأصول من المسار الصحيح.
+## ⚙️ مسار القاعدة (`base`)
 
-## 🔐 أسرار ومتغيرات بيئة GitHub (GitHub Secrets)
+قيمة واحدة تحكم كل شيء: `/`.
 
-| اسم السر | الوصف | إجباري؟ |
-|---|---|---|
-| `VITE_ORDER_WEB_APP_URL` | رابط تطبيق Google Apps Script لاستقبال طلبات الشراء والعملاء | نعم (لتفعيل إرسال الطلبات) |
+تظهر في أربعة مواضع يجب أن تبقى متطابقة دائماً:
 
-> ⚠️ **ملاحظة أمان**: أي متغير بيئة يبدأ بـ `VITE_` يتم تضمينه داخل حزمة العميل (JavaScript Bundle). رابط Apps Script عمومي بطبيعته ولا يحتوي على أي مفاتيح سرية.
+| الملف | الموضع |
+| --- | --- |
+| `vite.config.ts` | القيمة الافتراضية لـ `base` |
+| `.github/workflows/deploy.yml` | `VITE_BASE_PATH` في خطوة Build |
+| `.github/workflows/quality.yml` | `VITE_BASE_PATH` في خطوة Build |
+| `playwright.config.ts` | `baseURL` و `url` |
 
-## 🛠️ خطوات البناء والمعاينة محلياً
-1. تثبيت الاعتمادات بالضبط:
-   ```bash
-   npm ci
-   ```
-2. بناء الحزمة بالمسار الصحيح:
-   ```bash
-   VITE_BASE_PATH=/prism/ npm run build
-   ```
-3. معاينة الحزمة محلياً:
-   ```bash
-   npm run preview
-   ```
-   وافتح الرابط: `http://localhost:4173/prism/`
+إن غيّرت اسم المستودع، غيّر الأربعة معاً وإلا ظهرت صفحة بيضاء.
 
-## 🚨 استكشاف الأخطاء وإصلاحها (Troubleshooting)
+## 🚀 خطوات النشر
 
-### 1. ظهور صفحة بيضاء عند زيارة الموقع
-- **السبب**: عدم تطابق مسار الأصول بسبب `base` خاطئ.
-- **الحل**:
-  - التأكد من فتح الملف `dist/index.html` والتحقق من أن مسارات الأصول تبدأ بـ `/prism/assets/`.
-  - تحقق في سير عمل CI من نجاح خطوة `Guard against wrong base path`.
+1. `Settings ← Pages ← Source = GitHub Actions` — **خطوة يدوية إجبارية مرة واحدة.**
+2. `Settings ← Secrets and variables ← Actions` — أضف `VITE_ORDER_WEB_APP_URL`.
+3. ادفع إلى `main`. يعمل `deploy.yml` تلقائياً.
+4. تابع التقدم في تبويب **Actions**.
 
-### 2. خطأ في إرسال الطلبات (Order Receiver Not Configured)
-- **السبب**: عدم إضافة `VITE_ORDER_WEB_APP_URL` في GitHub Repository Secrets.
-- **الحل**: انتقل إلى Settings -> Secrets and variables -> Actions في المستودع وأضف `VITE_ORDER_WEB_APP_URL`.
+## 🧪 البناء محلياً
+
+```bash
+npm ci
+VITE_BASE_PATH=/ npm run build
+npm run preview -- --port 4173
+```
+
+ثم افتح `http://localhost:4173/`.
+
+## 🧯 حل المشكلات
+
+| العرض | السبب | الحل |
+| --- | --- | --- |
+| صفحة بيضاء | `base` لا يطابق مسار النشر | وحّد المواضع الأربعة أعلاه |
+| 404 على كل الأصول | نفس السبب | افحص `dist/index.html` — يجب أن يحوي `/assets/` |
+| `Failed to create deployment (404)` | مصدر Pages غير مضبوط | نفّذ الخطوة 1 |
+| الطلبات لا تُرسل | السر مفقود | نفّذ الخطوة 2 |
+| اختبارات e2e تفشل | `playwright.config.ts` لا يطابق `base` | وحّدهما |
