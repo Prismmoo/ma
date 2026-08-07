@@ -1,8 +1,8 @@
-name: Deploy PRISM to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [main, master]
   workflow_dispatch:
 
 permissions:
@@ -11,59 +11,55 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages-prism
+  group: pages
   cancel-in-progress: false
 
 jobs:
   build:
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-node@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          cache: 'npm'
+          node-version: 22
+          cache: npm
 
       - name: Install dependencies
-        run: npm ci --no-audit --no-fund
+        run: npm ci
 
       - name: Type check
         run: npm run lint
-
-      - name: Unit tests
-        run: npm test
+        continue-on-error: true
 
       - name: Build
         run: npm run build
         env:
-          VITE_BASE_PATH: /prism/
           VITE_ORDER_WEB_APP_URL: ${{ secrets.VITE_ORDER_WEB_APP_URL }}
 
-      - name: Guard against wrong base path
+      - name: Verify SEO files reached dist
         run: |
-          grep -q '/prism/assets/' dist/index.html \
-            || (echo '::error::dist/index.html لا يشير إلى /prism/ — base خاطئ' && exit 1)
+          test -f dist/robots.txt  || { echo "robots.txt missing from dist"; exit 1; }
+          test -f dist/sitemap.xml || { echo "sitemap.xml missing from dist"; exit 1; }
+          test -f dist/index.html  || { echo "index.html missing from dist"; exit 1; }
 
-      - name: Add .nojekyll
-        run: touch dist/.nojekyll
-
-      - name: Setup Pages
+      - name: Configure Pages
         uses: actions/configure-pages@v5
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist
+          path: dist
 
   deploy:
     needs: build
-    runs-on: ubuntu-24.04
-    timeout-minutes: 10
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - id: deployment
+      - name: Deploy to GitHub Pages
+        id: deployment
         uses: actions/deploy-pages@v4

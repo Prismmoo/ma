@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!--
+    NN Cyberspace is a single page application with no router: the address
+    bar never changes, so exactly one URL is indexable. Adding invented
+    paths such as /gallery would produce 404s in Search Console.
+  -->
+  <url>
+    <loc>https://prismmoo.github.io/</loc>
+    <lastmod>2026-08-07</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+
+    <image:image>
+      <image:loc>https://prismmoo.github.io/rooms/mobile-room-01.webp</image:loc>
+      <image:title>NN Cyberspace interior preview 01</image:title>
+      <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://prismmoo.github.io/rooms/mobile-room-02.webp</image:loc>
+      <image:title>NN Cyberspace interior preview 02</image:title>
+      <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://prismmoo.github.io/rooms/mobile-room-03.webp</image:loc>
+      <image:title>NN Cyberspace interior preview 03</image:title>
+      <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://prismmoo.github.io/rooms/mobile-room-04.webp</image:loc>
+      <image:title>NN Cyberspace interior preview 04</image:title>
+      <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://prismmoo.github.io/rooms/mobile-room-05.webp</image:loc>
+      <image:title>NN Cyberspace interior preview 05</image:title>
+      <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://prismmoo.github.io/rooms/mobile-room-06.webp</image:loc>
+      <image:title>NN Cyberspace interior preview 06</image:title>
+      <image:caption>Futuristic canvas artwork staged in a contemporary interior.</image:caption>
+    </image:image>
+  </url>
+
+</urlset>

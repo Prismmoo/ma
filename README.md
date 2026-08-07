@@ -1,84 +1,116 @@
-# 🎨 PRISM — NN Cyberspace
-### <sub>معرض فني رقمي ومتجر لوحات فيزيائية</sub>
+# NN Cyberspace
 
-[![Deploy](https://github.com/noureddinelmobaraki-web/prism/actions/workflows/deploy.yml/badge.svg)](https://github.com/noureddinelmobaraki-web/prism/actions/workflows/deploy.yml)
-![Node Version](https://img.shields.io/badge/node-%3E%3D20-brightgreen)
-![License](https://img.shields.io/badge/license-UNLICENSED-blue)
+[![Deploy](https://github.com/Prismmoo/prismmoo.github.io/actions/workflows/deploy.yml/badge.svg)](https://github.com/Prismmoo/prismmoo.github.io/actions/workflows/deploy.yml)
 
-**الموقع المباشر:** https://noureddinelmobaraki-web.github.io/prism/
+Futuristic digital art, physical canvases, and immersive spatial previews.
 
-## 🗺️ المحتويات
-- [الميزات](#-الميزات)
-- [التقنيات](#-التقنيات)
-- [البنية](#-البنية)
-- [البدء السريع](#-البدء-السريع)
-- [الأوامر](#-الأوامر)
-- [الاختبارات والجودة](#-الاختبارات-والجودة)
-- [النشر](#-النشر)
-- [الأمان والمتغيرات](#-الأمان-والمتغيرات)
-- [الرخصة](#-الرخصة)
+**Live site:** https://prismmoo.github.io/
 
-## ✨ الميزات
-- **معرض رقمي فاخر**: تصفح وتصنيف اللوحات الفنية والأعمال السايبربانك.
-- **استوديو التخصيص والستيكرات**: تعديل وأثرة الاستيكرات وإضافة نصوص وخطوط وألوان حبر مخصصة.
-- **محاكي الجدار الافتراضي (Wall Visualizer)**: استعراض اللوحات والمقاسات والإطارات على جدران الغرف الافتراضية.
-- **حزم ومجموعات خاصة (Packs)**: تصفح حزم اللوحات الفنية وإنشاء مجموعات مخصصة.
-- **طلب وشراء سلس**: سلة مشتريات محلية ومعالجة طلبات آمنة عبر Google Apps Script.
+---
 
-## 🧱 التقنيات
-- **الواجهة الأدوية**: React 19, Vite 6, TypeScript 5.8
-- **التنسيق والأنيميشن**: Tailwind CSS 4, Motion (Framer Motion)
-- **الأيقونات**: Lucide React
-- **الاختبارات والـ CI/CD**: Node test runner (`tsx --test`), Playwright E2E, GitHub Actions
-- **المنصة واستضافة الموقع**: GitHub Pages
+## Table of contents
 
-## 🏛️ البنية
-- `src/App.tsx`: مكون التطبيق الرئيسي والملاحة بين العروض
-- `src/components/`: مكونات الواجهة (المعرض، المحاكي، الاستوديو، الحزم)
-- `src/lib/`: مكتبات العمل المساعدة (تسليم الطلبات، التخصيص، الستيكرات، التسعير)
-- `scripts/`: أدوات إدارة وتدقيق كود وتدوير الكتالوجات الفنية
-- `tests/`: اختبارات الوحدة التحليلية وتحويلات الستيكرات
-- `e2e/`: اختبارات الدخان للواجهة بواسطة Playwright
+- [Features](#features)
+- [Tech stack](#tech-stack)
+- [Getting started](#getting-started)
+- [Scripts](#scripts)
+- [Project structure](#project-structure)
+- [Deployment](#deployment)
+- [SEO](#seo)
+- [License](#license)
 
-## ⚡ البدء السريع
+## Features
+
+| Section | What it does |
+| --- | --- |
+| Home | Hero video, featured pieces, entry points to every section |
+| Gallery | Browsable catalogue of available artwork with filters |
+| Visualizer | Previews a piece inside a staged interior |
+| Artists | Biography and background for each artist |
+| Stickers | Sticker catalogue and configurator |
+| Packs | Bundled collections offered as a single purchase |
+| 3D painting | Three-dimensional canvas viewer |
+| Upload | Customer-supplied artwork intake |
+
+Every section is code-split and loaded on demand.
+
+## Tech stack
+
+- **Vite 6** — build tool and dev server
+- **React 19** — UI, with `React.lazy` for each section
+- **TypeScript 5.8** — strict type checking via `npm run lint`
+- **Tailwind CSS 4** — styling, through the official Vite plugin
+- **Motion** — animation
+- **lucide-react** — icons
+
+## Getting started
+
 ```bash
-git clone https://github.com/noureddinelmobaraki-web/prism.git
-cd prism
 npm ci
 npm run dev
 ```
 
-## 🛠️ الأوامر
-| الأمر | الوصف |
-|---|---|
-| `npm run dev` | تشغيل خادم التطوير المحلي على الخادم المنفصل |
-| `npm run build` | بناء حزمة الإنتاج داخل مجلد `dist` |
-| `npm run preview` | معاينة حزمة الإنتاج مبنية محلياً |
-| `npm run lint` | فحص الأنواع بدون إصدار خوارزميات (`tsc --noEmit`) |
-| `npm run test` | تشغيل اختبارات الوحدة القياسية بـ Node native runner |
-| `npm run e2e` | تشغيل اختبارات الدخان عبر Playwright |
-| `npm run audit` | تدقيق الأمان المعتمد للحزم بدقة عالية |
-| `npm run art:sync` | مزامنة كتالوج اللوحات والأعمال الفنية |
-| `npm run art:verify` | التحقق من صحة روابط وصور اللوحات الفنية |
-| `npm run report:bundle` | بناء وإصدار تقرير بحجم وشكل الحزم المجمعة |
-| `npm run report:source` | تقرير وتحليل مصدر الكود |
-| `npm run audit:catalog` | التدقيق والتحقق من سلامة بيانات الكتالوج |
+The dev server listens on port 3000.
 
-## 🧪 الاختبارات والجودة
-تدار جودة الكود واختباراته بواسطة:
-1. **اختبارات الوحدة**: `npm test` للتحقق من خوارزميات الستيكرات والتحويلات.
-2. **فحص الأنواع**: `npm run lint` باستخدام TypeScript.
-3. **اختبارات الدخان E2E**: `npm run e2e` بواسطة Playwright للتأكد من إقلاع الموقع وصحة المسارات والأصول.
-4. **تدقيق الأمان والبيانات**: `npm run audit` و `npm run audit:catalog`.
+Copy `.env.example` to `.env.local` and fill in the values before testing order
+submission.
 
-## 🚀 النشر
-يتم النشر آلياً على **GitHub Pages** عند الدفع إلى فرع `main`. تفاصيل البناء وإعدادات السير موجودة في [DEPLOYMENT.md](DEPLOYMENT.md).
+## Scripts
 
-## 🔒 الأمان والمتغيرات
-تنبيه أمان مهم:
-- المتغير `VITE_ORDER_WEB_APP_URL` **يُحقن مباشرة في حزمة JavaScript العامة وقت البناء** وهو مقروء للجميع في العميل.
-- هو عبارة عن رابط عمومي مخصص لاستقبال الطلبات عبر Google Apps Script بدون كلمة سر أو مفتاح خاص.
-- **أي سر حقيقي يجب ألا يوضع إطلاقاً في أي متغير يبدأ بـ `VITE_`**.
+| Script | Purpose |
+| --- | --- |
+| `npm run dev` | Dev server on port 3000 |
+| `npm run build` | Production build into `dist/` |
+| `npm run preview` | Serve the production build locally |
+| `npm run lint` | TypeScript check, no emit |
+| `npm test` | Unit tests via the Node test runner |
+| `npm run art:sync` | Regenerate the art catalogue |
+| `npm run art:verify` | Check every catalogue image URL |
+| `npm run report:bundle` | Build and report bundle sizes |
+| `npm run report:source` | Report source tree sizes |
+| `npm run audit:catalog` | Validate catalogue integrity |
+| `npm run clean` | Remove build output |
 
-## 📄 الرخصة
-UNLICENSED — جميع الحقوق محفوظة لـ NN Cyberspace.
+## Project structure
+
+```
+src/
+  components/     UI components
+  hooks/          React hooks
+  lib/            Catalogue, ordering, and helper logic
+  generated/      Generated art catalogue — do not edit by hand
+public/
+  rooms/          Interior preview photography
+  robots.txt      Crawler policy
+  sitemap.xml     Sitemap
+scripts/          Maintenance scripts
+tests/            Unit tests
+```
+
+## Deployment
+
+Pushing to the default branch triggers `.github/workflows/deploy.yml`, which
+installs dependencies, builds, verifies that the SEO files reached `dist/`,
+and publishes to GitHub Pages.
+
+One-time setup in the repository settings:
+
+1. **Settings → Pages → Source:** GitHub Actions
+2. **Settings → Secrets and variables → Actions:** add `VITE_ORDER_WEB_APP_URL`
+
+No personal access token is required; the workflow uses the automatic
+`GITHUB_TOKEN`.
+
+## SEO
+
+This is a client-rendered single page application with no router, so exactly
+one URL is indexable. `public/sitemap.xml` lists that URL plus the six room
+photographs; `public/robots.txt` allows the JavaScript bundle, which Google
+must fetch in order to see any content at all.
+
+Submit the sitemap in Google Search Console as the relative path
+`sitemap.xml`.
+
+## License
+
+All rights reserved.

@@ -5,8 +5,7 @@ import {defineConfig} from 'vite';
 
 export default defineConfig(() => {
   return {
-    // GitHub Pages project site or relative static host. Uses VITE_BASE_PATH or './' for universal compatibility.
-    base: process.env.VITE_BASE_PATH || './',
+    base: process.env.VITE_BASE_PATH ?? '/',
     plugins: [react(), tailwindcss()],
     resolve: {
       alias: {
