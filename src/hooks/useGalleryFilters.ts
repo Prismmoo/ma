@@ -46,7 +46,7 @@ export function useGalleryFilters(options: Options = {}) {
   }, [mobileColumns]);
 
   const [selectedPalette, setSelectedPalette] = useState<string | null>(null);
-  const [maxPrice, setMaxPrice] = useState<number>(6500);
+  const [maxPrice, setMaxPrice] = useState<number>(120);
   const [sortBy, setSortBy] = useState<'default' | 'price-asc' | 'price-desc' | 'year'>('default');
   const [showFilters, setShowFilters] = useState<boolean>(true);
   const [activeTab, setActiveTab] = useState<'All' | 'Traditional' | 'Pop Culture'>('All');

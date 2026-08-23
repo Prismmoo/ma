@@ -699,16 +699,16 @@ export default function GalleryView({
                   </div>
                   <input
                     type="range"
-                    min="390"
-                    max="6500"
-                    step="100"
+                    min="100"
+                    max="120"
+                    step="5"
                     value={maxPrice}
                     onChange={(e) => setMaxPrice(parseInt(e.target.value))}
                     className="w-full accent-forest-gold cursor-pointer"
                   />
                   <div className="flex justify-between text-[10px] text-forest-cream/50 font-mono">
-                    <span>{formatMAD(390)}</span>
-                    <span>{formatMAD(6500)}</span>
+                    <span>{formatMAD(100)}</span>
+                    <span>{formatMAD(120)}</span>
                   </div>
                 </div>
               </aside>

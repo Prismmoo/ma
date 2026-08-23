@@ -261,7 +261,7 @@ export const QUALITY_META: Record<
   low:        { label: 'Museum giclée',   hint: 'Printed from the archival master file.', tone: 'ok' },
 };
 
-/** تسعير خطّي بالمساحة مع حدّ أدنى/أقصى — متوافق مع منطق الأسعار الحالي. */
+/** تسعير خطّي بالمساحة مع حدّ أدنى/أقصى — محدد ما بين 100 و 120 درهمًا. */
 export function priceForSize(
   basePrice: number,
   baseWidthCm: number,
@@ -271,8 +271,8 @@ export function priceForSize(
 ) {
   const baseArea = Math.max(1, baseWidthCm * baseHeightCm);
   const area = widthCm * heightCm;
-  const raw = basePrice * (0.45 + 0.55 * (area / baseArea));
-  return Math.min(9800, Math.max(950, Math.round(raw / 50) * 50));
+  const raw = basePrice * (0.85 + 0.15 * (area / baseArea));
+  return Math.min(120, Math.max(100, Math.round(raw / 5) * 5));
 }
 
 /**

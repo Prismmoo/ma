@@ -105,11 +105,10 @@ function physicalSize(w: number, h: number, seed: number): {
   const widthCm = isMedium ? 60 : 40;
   const heightCm = Math.round(widthCm * ratio);
 
-  // السعر دالة من المساحة فقط، مقرّب لأقرب 50 درهمًا متساويًا.
-  // يُضمن أن كل الأسعار داخل نطاق المرشّح [1000, 8000].
+  // السعر دالة من المساحة، مقرّب ليكون بدقة ما بين 100 و 120 درهمًا.
   const area = (widthCm * heightCm) / 100; // dm²
-  const raw = 900 + area * 22;
-  const price = Math.min(7800, Math.max(1050, Math.round(raw / 50) * 50));
+  const raw = 100 + ((area - 16) / 38) * 20;
+  const price = Math.min(120, Math.max(100, Math.round(raw / 5) * 5));
 
   return {
     sizeCategory: isMedium ? 'Medium' : 'Small',
